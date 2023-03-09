@@ -132,12 +132,12 @@ class IntroductionPageState extends State<IntroductionPage> {
       //rtl: true, // Display as right-to-left
       back: const Icon(
         Icons.arrow_back,
-        color: AppColors.mainAppColor,
+        color: AppColors.mainAppFaintColor,
       ),
       skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
       next: const Icon(
         Icons.arrow_forward,
-        color: AppColors.mainAppColor,
+        color: AppColors.mainAppFaintColor,
       ),
       done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
       curve: Curves.fastLinearToSlowEaseIn,
