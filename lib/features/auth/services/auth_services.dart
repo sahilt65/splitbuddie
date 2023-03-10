@@ -10,6 +10,7 @@ import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/constants/http_error_handelling.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
+import 'package:splitbuddie/features/Home/home_page.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class AuthService {
@@ -59,11 +60,6 @@ class AuthService {
     required String email,
     required String password,
   }) async {
-    print('sahil' +
-        jsonEncode({
-          "email": email,
-          "password": password,
-        }));
     try {
       http.Response res = await http.post(
         Uri.parse("$uri/api/signin"),
@@ -76,7 +72,7 @@ class AuthService {
         },
       );
 
-      print(res.body);
+      print("Sahil :" + res.body);
 
       // ignore: use_build_context_synchronously
       httpErrorHandle(
@@ -87,12 +83,13 @@ class AuthService {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           prefs.setString("x-auth-token", jsonDecode(res.body)['token']);
-          // Navigator.pushNamedAndRemoveUntil(
-          //   context,
-          //   BottomBar.routeName,
-          //   (route) => false,
-          // );
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            HomePage.routeName,
+            (route) => false,
+          );
           // Navigator.push(contex)
+          // Navigator.pushNamed(context, HomePage.routeName);
           print("Success");
         },
       );

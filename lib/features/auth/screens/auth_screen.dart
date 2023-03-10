@@ -12,7 +12,6 @@ enum Auth {
 class AuthScreen extends StatefulWidget {
   static const String routeName = '/auth-screen';
   const AuthScreen({super.key});
-
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
@@ -141,7 +140,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           CustomTextField(
                             controller: _passwordController,
                             hintText: "Password",
-                            textInputType: TextInputType.emailAddress,
+                              textInputType: TextInputType.emailAddress
                           ),
                           const SizedBox(
                             height: 10,
@@ -202,6 +201,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             controller: _passwordController,
                             hintText: "Password",
                             textInputType: TextInputType.emailAddress,
+
                           ),
                           const SizedBox(
                             height: 10,

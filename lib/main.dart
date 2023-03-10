@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:splitbuddie/features/Home/home_page.dart';
 import 'package:splitbuddie/features/introduction/intro_slider.dart';
-import 'package:splitbuddie/features/introduction/introduction.dart';
+import 'package:splitbuddie/providers/user_provider.dart';
+import 'package:splitbuddie/routes.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +38,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      onGenerateRoute: ((settings) => generateRoute(settings)),
       home: IntroductionPage(),
+      // home: const HomePage(),
     );
   }
 }

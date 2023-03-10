@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/features/Home/home_page.dart';
+import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 
 class IntroductionPage extends StatefulWidget {
+  static const String routeName = "introduction-slider";
   const IntroductionPage({Key? key}) : super(key: key);
 
   @override
@@ -16,9 +18,11 @@ class IntroductionPageState extends State<IntroductionPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const HomePage()),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(builder: (_) => const HomePage()),
+    // );
+
+    Navigator.pushNamed(context, AuthScreen.routeName);
   }
 
   Widget _buildFullscreenImage() {
