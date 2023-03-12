@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:splitbuddie/features/Home/home_page.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/introduction/intro_slider.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 import 'package:splitbuddie/routes.dart';
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
-      home: IntroductionPage(),
-      // home: const HomePage(),
+      // home: IntroductionPage(),
+      home: const HomePage(),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:splitbuddie/constants/colors.dart';
-import 'package:splitbuddie/features/Home/home_page.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 
 class IntroductionPage extends StatefulWidget {

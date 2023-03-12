@@ -10,7 +10,7 @@ import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/constants/http_error_handelling.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
-import 'package:splitbuddie/features/Home/home_page.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class AuthService {

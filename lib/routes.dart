@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:splitbuddie/features/Home/home_page.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
+import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -14,6 +15,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AuthScreen(),
+      );
+
+    case CreateGroupScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const CreateGroupScreen(),
       );
 
     default:
