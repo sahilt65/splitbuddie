@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/constants/dimensions.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
+import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
+import 'package:splitbuddie/providers/user_provider.dart';
 
 class GroupScreen extends StatefulWidget {
   const GroupScreen({super.key});
@@ -14,8 +16,15 @@ class GroupScreen extends StatefulWidget {
 }
 
 class _GroupScreenState extends State<GroupScreen> {
+  void navigateToGroupInfoScreen() {
+    Navigator.pushNamed(context, GroupInfoScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    print("sahil");
+    print(userProvider.user.token);
     return Scaffold(
       backgroundColor: AppColors.screenBackgroundColor,
       appBar: AppBar(
@@ -52,22 +61,44 @@ class _GroupScreenState extends State<GroupScreen> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 120,
-                          color: AppColors.screenBackgroundColor,
-                          child: Image.asset(
-                            "assets/images/group-icon.png",
-                            height: 20,
+                    child: GestureDetector(
+                      onTap: navigateToGroupInfoScreen,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 120,
+                            color: AppColors.screenBackgroundColor,
+                            child: Image.asset(
+                              "assets/images/group-icon.png",
+                              height: 20,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        )
-                      ],
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(top: 20, left: 15),
+                                child: const Text(
+                                  "Group Name",
+                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top: 20, left: 15),
+                                child: const Text(
+                                  "You Borrowed 1000",
+                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   );
                 })),

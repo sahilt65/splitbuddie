@@ -5,18 +5,16 @@ const authRouter = express.Router();
 
 authRouter.post("/api/signup", async (req, res)=>{
     try{
-
-        const { name, email, mob, password } = req.body;
+        const { userId, name, email, mob, password } = req.body;
         const existingUser = await User.findOne({email});
         if(existingUser){
             return req.status(400).json({msg:"User with same email address already exists"});
         }
 
         let user = new User({
-            name, email, mob, password
+            userId, name, email, mob, password
         });
         user = await user.save();
-        
         res.json(user);
     }catch(e){
         res.status(500).json({ error: e.message });
@@ -35,13 +33,11 @@ authRouter.post("/api/signin", async (req, res)=>{
         }
         console.log(password);
         console.log(user.password);
-
         if(password != user.password){
             return res.status(400).json({ msg: "Incorrect password." }); 
         }
 
         const token = jwt.sign({ id: user._id }, "passwordKey");
-
         res.json({token, ...user._doc})
     }catch(e){
         res.status(500).json({ error: e.message });

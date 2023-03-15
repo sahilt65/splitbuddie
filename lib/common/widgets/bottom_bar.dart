@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:splitbuddie/constants/colors.dart';
+import 'package:splitbuddie/features/groups/screens/group_screen.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -15,88 +18,68 @@ class _BottomBarState extends State<BottomBar> {
   double bottomNavigationBarWidth = 42;
   double bottomBarBorderWidth = 5;
 
-  List<Widget> pages = [
+  List<Widget> pages = const [
+    HomePage(),
+    GroupScreen(),
     Center(
-      child: Text("sahil"),
-    )
-    // const HomeScreen(),
+      child: Text("History"),
+    ),
+
     // const AccountScreen(),
     // const CartScreen(),
   ];
 
-  void updatePage(int page) {
-    setState(() {
-      _page = page;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final userCartLen = context.watch<UserProvider>().user;
-
     return Scaffold(
       body: pages[_page],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _page,
-        // selectedItemColor: GlobalVariables.selectedNavBarColor,
-        // unselectedItemColor: GlobalVariables.unselectedNavBarColor,
-        // backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
-        onTap: updatePage,
-        items: [
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomNavigationBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                      // color: _page == 0 ? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
-                      width: bottomBarBorderWidth),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: AppColors.screenBackgroundColor,
+          border: Border.all(width: 1, color: Color.fromRGBO(200, 216, 226, 1)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromRGBO(190, 208, 219, 0.7),
+              offset: const Offset(0, 3),
+              blurRadius: 10.0,
+              spreadRadius: 4.0,
+            )
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: BottomNavigationBar(
+              elevation: 0,
+              backgroundColor: AppColors.screenBackgroundColor,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  label: "Home",
                 ),
-              ),
-              child: const Icon(
-                Icons.home_outlined,
-              ),
-            ),
-            label: '',
-          ),
-
-          //Account
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomNavigationBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                      // color: _page == 1 ? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
-                      width: bottomBarBorderWidth),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.group_outlined),
+                  label: "Groups",
                 ),
-              ),
-              child: const Icon(
-                Icons.person_outline_outlined,
-              ),
-            ),
-            label: '',
-          ),
-
-          //Cart
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomNavigationBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                      // color: _page == 2 ? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
-                      width: bottomBarBorderWidth),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.history_sharp),
+                  label: "History",
                 ),
-              ),
-              child: Icon(
-                Icons.shopping_cart_outlined,
-              ),
+                // BottomNavigationBarItem(
+                //   icon: Icon(Icons.person_outline),
+                //   label: "Profile",
+                // ),
+              ],
+              currentIndex: _page,
+              selectedItemColor: Color.fromRGBO(69, 75, 94, 1),
+              onTap: (int value) {
+                print(value);
+                _page = value;
+                setState(() {});
+              },
             ),
-            label: '',
           ),
-        ],
+        ),
       ),
     );
   }

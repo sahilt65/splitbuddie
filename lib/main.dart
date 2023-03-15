@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/introduction/intro_slider.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
       // home: IntroductionPage(),
-      home: const HomePage(),
+      home: const BottomBar(),
     );
   }
 }

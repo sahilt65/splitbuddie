@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/constants/dimensions.dart';
+import 'package:splitbuddie/features/create_group/services/create_group_services.dart';
+import 'package:splitbuddie/providers/user_provider.dart';
 
 class CreateGroupScreen extends StatefulWidget {
   static const String routeName = "/create-group-screen";
@@ -13,9 +16,19 @@ class CreateGroupScreen extends StatefulWidget {
 }
 
 class _CreateGroupScreenState extends State<CreateGroupScreen> {
-  TextEditingController _newGroupNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    TextEditingController newGroupNameController = TextEditingController();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    CreateGroupServices createGroupServices = CreateGroupServices();
+
+    void onPressedCreateGroup() {
+      print("skufkgr");
+      createGroupServices.createGroup(
+          userId: '12345678990', context: context, groupName: newGroupNameController.text, groupType: "Flat Mates");
+    }
+
     return Scaffold(
       backgroundColor: AppColors.screenBackgroundColor,
       appBar: AppBar(
@@ -33,9 +46,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
             width: 150,
           ),
           GestureDetector(
-            onTap: () {
-              print("Group Created");
-            },
+            onTap: onPressedCreateGroup,
             child: Text(
               "Done",
               style: TextStyle(fontSize: Dimensions.font15, color: Colors.black),
@@ -87,7 +98,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     width: 325,
                     height: 20,
                     child: TextFormField(
-                      controller: _newGroupNameController,
+                      controller: newGroupNameController,
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.black),

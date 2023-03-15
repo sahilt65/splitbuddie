@@ -27,6 +27,10 @@ dependencies:
   http: ^0.13.5
   shared_preferences: ^2.0.18
   provider: ^6.0.5
+  google_nav_bar: ^5.0.6
+  line_icons: ^2.0.1
+  curved_navigation_bar: ^1.0.3
+  # cupertino_icons: ^1.0.5
 
 
 dev_dependencies:

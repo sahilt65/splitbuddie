@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 
 const userSchema = mongoose.Schema({
+    userId : {
+        required : true,
+        type : String,
+    },
     name : {
         required : true,
         type : String,

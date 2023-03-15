@@ -1,6 +1,9 @@
-const authRouter = require("./router/auth_route");
 const mongoose = require("mongoose");
 const express = require('express');
+
+//Files Import
+const authRouter = require("./router/auth_route");
+const userRouter = require("./router/user");
 
 //Init
 const PORT = 4000;
@@ -10,6 +13,8 @@ const DB = "mongodb+srv://sahil:sahil@cluster0.wmbdycd.mongodb.net/?retryWrites=
 //middleware
 app.use(express.json());
 app.use(authRouter);
+app.use(userRouter);
+
 
 //Connection
 mongoose

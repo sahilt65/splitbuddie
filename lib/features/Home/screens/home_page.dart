@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
 import 'package:splitbuddie/constants/colors.dart';
@@ -18,6 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: AppColors.screenBackgroundColor,
           // Color.fromRGBO(223, 235, 245, 1),
           body: Padding(
-            padding: const EdgeInsets.only(top: 120),
+            padding: const EdgeInsets.only(top: 100),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //first Row
               Padding(
@@ -123,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 25,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,6 +218,75 @@ class _HomePageState extends State<HomePage> {
               )
             ]),
           ),
+          // bottomNavigationBar: Material(
+          //   // color: Colors.transparent,
+          //   color: Color.fromARGB(255, 178, 223, 244),
+          //   elevation: 20,
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //       color: AppColors.screenBackgroundColor,
+          //       border: Border.all(width: 1, color: Color.fromRGBO(200, 216, 226, 1)),
+          //       boxShadow: const [
+          //         BoxShadow(
+          //           color: Color.fromRGBO(190, 208, 219, 0.7),
+          //           offset: const Offset(0, 3),
+          //           blurRadius: 10.0,
+          //           spreadRadius: 4.0,
+          //         )
+          //       ],
+          //     ),
+          //     child: SafeArea(
+          //       child: Padding(
+          //           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+          //           child: BottomNavigationBar(
+          //             elevation: 0,
+          //             backgroundColor: AppColors.screenBackgroundColor,
+          //             items: [
+          //               BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
+          //               BottomNavigationBarItem(icon: Icon(Icons.group_outlined), label: "Groups"),
+          //               BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Profile"),
+          //             ],
+          //           )
+          //           // GNav(
+          //           //   rippleColor: Colors.grey[300]!,
+          //           //   hoverColor: AppColors.screenBackgroundColor,
+          //           //   gap: 8,
+          //           //   activeColor: Colors.black,
+          //           //   iconSize: 24,
+          //           //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          //           //   duration: Duration(milliseconds: 400),
+          //           //   tabBackgroundColor: AppColors.screenBackgroundColor,
+          //           //   color: Colors.black,
+          //           //   tabs: const [
+          //           //     GButton(
+          //           //       icon: LineIcons.home,
+          //           //       text: 'Home',
+          //           //     ),
+          //           //     GButton(
+          //           //       icon: Icons.group_outlined,
+          //           //       text: 'Likes',
+          //           //       iconSize: 24,
+          //           //     ),
+          //           //     GButton(
+          //           //       icon: LineIcons.search,
+          //           //       text: 'Search',
+          //           //     ),
+          //           //     GButton(
+          //           //       icon: LineIcons.user,
+          //           //       text: 'Profile',
+          //           //     ),
+          //           //   ],
+          //           //   // selectedIndex: _selectedIndex,
+          //           //   // onTabChange: (index) {
+          //           //   //   setState(() {
+          //           //   //     _selectedIndex = index;
+          //           //   //   });
+          //           //   // },
+          //           // ),
+          //           ),
+          //     ),
+          //   ),
+          // ),
         ),
       ),
     );
