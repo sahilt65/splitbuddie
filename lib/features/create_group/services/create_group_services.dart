@@ -4,9 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:splitbuddie/Models/create_group_model.dart';
 import 'package:splitbuddie/Models/user.dart';
+import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
+import 'package:splitbuddie/constants/http_error_handelling.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:http/http.dart' as http;
+import 'package:splitbuddie/features/groups/screens/group_screen.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class CreateGroupServices {
@@ -33,12 +36,19 @@ class CreateGroupServices {
           // 'x-auth-token': userProvider.user.token,
         },
       );
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            Navigator.pushNamed(context, GroupScreen.routeName);
+          });
     } catch (e) {
       showSnackBar(context, e.toString());
     }
   }
 
-  Future<Map<String, dynamic>> getGroupsDetails({
+  Future<List<dynamic>> getGroupsDetails({
     required BuildContext context,
     required String userId,
   }) async {
@@ -51,10 +61,14 @@ class CreateGroupServices {
         },
       );
 
+      print(res.body);
+
       Map<String, dynamic> newResponse = jsonDecode(res.body);
 
-      print("Sahil1234" + newResponse.toString());
-      return newResponse;
+      print(newResponse['groups'][1]['_id']);
+
+      // print("Sahil1234" + newResponse['groups']);
+      return newResponse['groups'];
     } catch (e) {
       showSnackBar(context, e.toString());
       return jsonDecode('{"error" : "Some error occured"}');

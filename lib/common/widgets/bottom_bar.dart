@@ -1,13 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:splitbuddie/constants/colors.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
-import 'package:splitbuddie/features/Home/screens/home_page.dart';
 
 class BottomBar extends StatefulWidget {
+  final int? indexFromOtherPage;
   static const String routeName = '/actual-home';
-  const BottomBar({super.key});
+  const BottomBar({
+    Key? key,
+    this.indexFromOtherPage,
+  }) : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -32,7 +38,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_page],
+      body: pages[widget.indexFromOtherPage == null ? _page : widget.indexFromOtherPage!],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: AppColors.screenBackgroundColor,

@@ -14,26 +14,7 @@ class GroupInfoScreen extends StatefulWidget {
 }
 
 class _GroupInfoScreenState extends State<GroupInfoScreen> {
-  CreateGroupServices createGroupServices = CreateGroupServices();
-  List<String> groupsInfo = [];
-  late Map<String, dynamic> groupDetails;
-
-  Future<String> getDetails() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    String? userId = userProvider.user.id;
-    groupDetails = await createGroupServices.getGroupsDetails(context: context, userId: userId!);
-
-    // groupDetails.forEach((key, value) {
-    //   if (key == 'groupName') {}
-
-    //   groupsInfo.add(groupDetails["groups"]);
-    // });
-
-    return groupDetails['groups'];
-  }
-
-  
-  
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +22,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
         body: ListView.builder(
       itemCount: 2,
       itemBuilder: (BuildContext context, int index) {
-        return Center(child: Text("Groups Info"));
+        return Center(child: Text(index.toString()));
       },
     ));
   }
