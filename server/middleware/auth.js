@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const auth = async(req, res, next) => {
     try{
+        console.log("Middle ware");
         const token = req.header('x-auth-token');
         if(!token){
             return res.status(401).json({msg : "No auth token, access denied"});
@@ -23,3 +24,4 @@ const auth = async(req, res, next) => {
     }
 
 }
+module.exports = auth;

@@ -3,7 +3,7 @@ mongoose.set('strictQuery', false);
 
 const userSchema = mongoose.Schema({
     userId : {
-        required : true,
+        // required : true,
         type : String,
     },
     name : {

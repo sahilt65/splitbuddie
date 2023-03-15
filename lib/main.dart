@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/features/Home/screens/home_page.dart';
+import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
+import 'package:splitbuddie/features/auth/services/auth_services.dart';
 import 'package:splitbuddie/features/introduction/intro_slider.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 import 'package:splitbuddie/routes.dart';
-
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -15,8 +16,20 @@ void main() {
   ], child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  AuthService authService = AuthService();
+  @override
+  void initState() {
+    authService.getUserData(context: context);
+    super.initState();
+  }
 
   // This widget is the root of your application.
   @override
@@ -41,7 +54,7 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
       // home: IntroductionPage(),
-      home: const BottomBar(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
     );
   }
 }

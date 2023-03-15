@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/constants/dimensions.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
+import 'package:splitbuddie/features/create_group/services/create_group_services.dart';
 import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
@@ -16,7 +17,12 @@ class GroupScreen extends StatefulWidget {
 }
 
 class _GroupScreenState extends State<GroupScreen> {
+  
   void navigateToGroupInfoScreen() {
+    CreateGroupServices createGroupServices = CreateGroupServices();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    String? userId = userProvider.user.id;
+    createGroupServices.getGroupsDetails(context: context, userId: userId!);
     Navigator.pushNamed(context, GroupInfoScreen.routeName);
   }
 

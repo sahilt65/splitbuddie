@@ -30,7 +30,3 @@ app.listen(PORT, "0.0.0.0", function(){
     console.log(`connected at port ${PORT}` );
 })
 //test
-
-app.get('/', (req,res) => {
-    res.send("hello wordl");
-})

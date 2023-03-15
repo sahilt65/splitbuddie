@@ -24,9 +24,11 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
     CreateGroupServices createGroupServices = CreateGroupServices();
 
     void onPressedCreateGroup() {
+      String? userId = userProvider.user.id;
+
       print("skufkgr");
       createGroupServices.createGroup(
-          userId: '12345678990', context: context, groupName: newGroupNameController.text, groupType: "Flat Mates");
+          userId: userId!, context: context, groupName: newGroupNameController.text, groupType: "Flat Mates");
     }
 
     return Scaffold(

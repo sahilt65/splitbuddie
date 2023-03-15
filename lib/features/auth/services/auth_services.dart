@@ -69,23 +69,27 @@ class AuthService {
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+ 
         },
       );
 
-      print("Sahil :" + res.body);
+      print("Sahil123 :" + res.body);
 
       // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () async {
-          print("Success");
+          print("Success1");
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+          print("Success2");
+          Provider.of<UserProvider>(context, listen: false).setUser(res.body.toString());
+          print("Success3");
           prefs.setString("x-auth-token", jsonDecode(res.body)['token']);
+          print("Success4");
           Navigator.pushNamedAndRemoveUntil(
             context,
-            HomePage.routeName,
+            BottomBar.routeName,
             (route) => false,
           );
           // Navigator.push(contex)
@@ -98,6 +102,8 @@ class AuthService {
       showSnackBar(context, e.toString());
     }
   }
+
+  //Check token is valid or not
 
   //Sign in
   void getUserData({
