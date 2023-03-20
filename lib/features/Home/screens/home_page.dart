@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                       // Color.fromRGBO(179, 129, 129, 1),
                       Color.fromRGBO(209, 121, 121, 1),
                     ],
-                    mainBorderColor: Color.fromRGBO(93, 136, 164, 1),
+                    mainBorderColor: Color.fromRGBO(179, 129, 129, 1),
                     boxShadowColor: Color.fromRGBO(173, 209, 231, 1),
                     mainText: "Spend",
                     circularIconColorGradient: [
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                       Color.fromRGBO(111, 189, 175, 1),
                       Color.fromRGBO(99, 192, 175, 1),
                     ],
-                    mainBorderColor: Color.fromRGBO(93, 136, 164, 1),
+                    mainBorderColor: Color.fromRGBO(111, 189, 175, 1),
                     boxShadowColor: Color.fromRGBO(173, 209, 231, 1),
                     mainText: "Borrow",
                     circularIconColorGradient: [
@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                         Color.fromRGBO(212, 123, 214, 1),
                         Color.fromRGBO(188, 133, 190, 1),
                       ],
-                      mainBorderColor: Color.fromRGBO(93, 136, 164, 1),
+                      mainBorderColor: Color.fromRGBO(188, 133, 190, 1),
                       boxShadowColor: Color.fromRGBO(173, 209, 231, 1),
                       mainText: "Borrow",
                       circularIconColorGradient: [

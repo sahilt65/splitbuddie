@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
+import 'package:splitbuddie/Models/create_group_model.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/constants/dimensions.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
@@ -19,11 +20,7 @@ class GroupScreen extends StatefulWidget {
 
 class _GroupScreenState extends State<GroupScreen> {
   void navigateToGroupInfoScreen() {
-    CreateGroupServices createGroupServices = CreateGroupServices();
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    String? userId = userProvider.user.id;
-    createGroupServices.getGroupsDetails(context: context, userId: userId!);
-    Navigator.pushNamed(context, GroupInfoScreen.routeName);
+    
   }
 
   CreateGroupServices createGroupServices = CreateGroupServices();
@@ -79,58 +76,69 @@ class _GroupScreenState extends State<GroupScreen> {
               ]),
               backgroundColor: AppColors.screenBackgroundColor,
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: groupDetails!.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 90,
-                                color: AppColors.screenBackgroundColor,
-                                child: Image.asset(
-                                  "assets/images/group-icon.png",
-                                  height: 16,
-                                ),
+            body: Container(
+              color: AppColors.screenBackgroundColor,
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: groupDetails!.length,
+                  itemBuilder: (context, index) {
+                    CreateGroup createGroup = CreateGroup(
+                      userId: groupDetails![index]['userId'],
+                      groupName: groupDetails![index]['groupName'],
+                      groupType: groupDetails![index]['groupType'],
+                    );
+                    return GestureDetector(
+                      onTap: () {
+                        CreateGroupServices createGroupServices = CreateGroupServices();
+                        final userProvider = Provider.of<UserProvider>(context, listen: false);
+                        String? userId = userProvider.user.id;
+                        createGroupServices.getGroupsDetails(context: context, userId: userId!);
+                        Navigator.pushNamed(context, GroupInfoScreen.routeName, arguments: createGroup);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 90,
+                              // color: AppColors.screenBackgroundColor,
+                              child: Image.asset(
+                                "assets/images/group-icon.png",
+                                height: 16,
                               ),
-                              const SizedBox(
-                                width: 30,
-                              ),
-                              GestureDetector(
-                                onTap: navigateToGroupInfoScreen,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 278,
-                                      padding: EdgeInsets.only(top: 20, left: 15),
-                                      child: Text(
-                                        groupDetails![index]['groupName'],
-                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 278,
-                                      padding: EdgeInsets.only(top: 20, left: 15),
-                                      child: const Text(
-                                        "No expense",
-                                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-                                      ),
-                                    ),
-                                  ],
+                            ),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 278,
+                                  padding: EdgeInsets.only(top: 20, left: 15),
+                                  child: Text(
+                                    groupDetails![index]['groupName'],
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                              )
-                            ],
-                          ),
-                        );
-                      })),
+                                Container(
+                                  width: 278,
+                                  padding: EdgeInsets.only(top: 20, left: 15),
+                                  child: const Text(
+                                    "No expense",
+                                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
             ),
           );
   }

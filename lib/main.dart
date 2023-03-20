@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:splitbuddie/Models/create_group_model.dart';
 import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/services/auth_services.dart';
+import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
 import 'package:splitbuddie/features/introduction/intro_slider.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 import 'package:splitbuddie/routes.dart';
@@ -53,7 +55,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
-      // home: IntroductionPage(),
+      // home: GroupInfoScreen(
+      //   groupInfo: CreateGroup(userId: '123', groupName: "Flayt Mates", groupType: "Home"),
+      // ),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
     );
   }
