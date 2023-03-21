@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/features/Home/screens/home_page.dart';
+import 'package:splitbuddie/features/friends/screens/friends_screen.dart';
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
-import 'package:splitbuddie/providers/user_provider.dart';
 
 class BottomBar extends StatefulWidget {
   final int? indexFromOtherPage;
@@ -26,22 +24,27 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = const [
     HomePage(),
+
     GroupScreen(),
+
+    FriendsScreen(),
+
     Center(
       child: Text("History"),
     ),
+    
 
-    // const AccountScreen(),
-    // const CartScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[widget.indexFromOtherPage == null ? _page : widget.indexFromOtherPage!],
+      // backgroundColor: AppColors.screenBackgroundColor,
+      body: pages[_page],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: AppColors.screenBackgroundColor,
+          // color: AppColors.screenBackgroundColor,
+          color: Colors.black,
           border: Border.all(width: 1, color: Color.fromRGBO(200, 216, 226, 1)),
           boxShadow: const [
             BoxShadow(
@@ -52,39 +55,42 @@ class _BottomBarState extends State<BottomBar> {
             )
           ],
         ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: BottomNavigationBar(
-              elevation: 0,
+        child: BottomNavigationBar(
+          elevation: 0,
+          backgroundColor: AppColors.screenBackgroundColor,
+          unselectedItemColor: Colors.grey,
+          iconSize: 28,
+          // fixedColor: Colors.black,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_outlined,
+              ),
+              label: "Home",
               backgroundColor: AppColors.screenBackgroundColor,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined),
-                  label: "Home",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.group_outlined),
-                  label: "Groups",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.history_sharp),
-                  label: "History",
-                ),
-                // BottomNavigationBarItem(
-                //   icon: Icon(Icons.person_outline),
-                //   label: "Profile",
-                // ),
-              ],
-              currentIndex: _page,
-              selectedItemColor: Color.fromRGBO(69, 75, 94, 1),
-              onTap: (int value) {
-                print(value);
-                _page = value;
-                setState(() {});
-              },
             ),
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group_outlined),
+              label: "Groups",
+              
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: "Friends",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history_sharp),
+              label: "History",
+            ),
+          ],
+          currentIndex: _page,
+          selectedItemColor: Color.fromRGBO(69, 75, 94, 1),
+
+          onTap: (int value) {
+            print(value);
+            _page = value;
+            setState(() {});
+          },
         ),
       ),
     );
