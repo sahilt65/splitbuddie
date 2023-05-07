@@ -7,6 +7,7 @@ const auth = require("../middleware/auth");
 authRouter.post("/api/signup", async (req, res)=>{
     try{
         const { userId, name, email, mob, password } = req.body;
+        
         const existingUser = await User.findOne({email});
         if(existingUser){
             return req.status(400).json({msg:"User with same email address already exists"});

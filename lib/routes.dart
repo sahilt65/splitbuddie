@@ -21,8 +21,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => BottomBar(
-          indexFromOtherPage: index,
-        ),
+            // indexFromOtherPage: index,
+            ),
       );
 
     case HomePage.routeName:
@@ -53,9 +53,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       );
 
     case AddFriendInGroupScreen.routeName:
+      var groupInfo = routeSettings.arguments as CreateGroup;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AddFriendInGroupScreen(),
+        builder: (_) => AddFriendInGroupScreen(
+          groupInfo: groupInfo,
+        ),
       );
 
     default:

@@ -10,6 +10,9 @@ import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/features/create_group/services/create_group_services.dart';
 import 'package:splitbuddie/features/groups/screens/add_friends_in_group_screen.dart';
+import 'package:splitbuddie/features/groups/screens/group_screen_with_members.dart';
+import 'package:splitbuddie/features/groups/screens/no_group_member_screen.dart';
+import 'package:splitbuddie/features/groups/services/group_details_services.dart';
 import 'package:splitbuddie/features/groups/widgets/scroll_button_widget.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
@@ -26,162 +29,33 @@ class GroupInfoScreen extends StatefulWidget {
 }
 
 class _GroupInfoScreenState extends State<GroupInfoScreen> {
+  PostGroupDetailsServices postGroupDetailsServices = PostGroupDetailsServices();
+  Map<String, dynamic>? groupDetails;
+  void getGroupInfo() async {
+    Map<String, dynamic>? tempGroupDetails =
+        await postGroupDetailsServices.getGroupDetails(context: context, groupId: widget.groupInfo.groupId!);
+
+    // print("Dkjsdfjkc" + tempGroupDetails["_id"]);
+    // print("Dkjsdfjkc" + tempGroupDetails["groupMembers"][0]["name"]);
+
+    setState(() {
+      groupDetails = tempGroupDetails;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getGroupInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.screenBackgroundColor,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: AppColors.screenBackgroundColor,
-        toolbarHeight: 60,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_outlined,
-            size: 25,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(
-          widget.groupInfo.groupName,
-          style: const TextStyle(color: Colors.black),
-        ),
-        actions: const [
-          SizedBox(
-            width: 10,
-          ),
-          Icon(Icons.login),
-          SizedBox(
-            width: 30,
-          ),
-          Icon(Icons.delete_outline),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-      body: Container(
-          // color: AppColors.screenBackgroundColor,
-          child: Container(
-        padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "No expense here yet",
-              style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ScrollButtonWidget(height: 32, width: 110, text: "Settle Up", onTap: () {}),
-                  const SizedBox(width: 10),
-                  ScrollButtonWidget(height: 32, width: 110, text: "Balances", onTap: () {}),
-                  const SizedBox(width: 10),
-                  ScrollButtonWidget(height: 32, width: 110, text: "Total", onTap: () {}),
-                  const SizedBox(width: 10),
-                  ScrollButtonWidget(height: 32, width: 110, text: "Charts", onTap: () {}),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            const Text(
-              "You are the only one in this group",
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            InkWell(
-              splashColor: Color.fromRGBO(153, 185, 223, 1),
-              borderRadius: BorderRadius.circular(50),
-              onTap: () {
-                Navigator.pushNamed(context, AddFriendInGroupScreen.routeName);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0,
-                  ),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Row(
-                  children: const [
-                    CircleAvatar(
-                      radius: 32,
-                      backgroundColor: Color.fromRGBO(153, 185, 223, 1),
-                      child: Center(
-                        child: Icon(
-                          Icons.group_add_outlined,
-                          size: 35,
-                          color: Colors.black,
-                          weight: 0.1,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Add friends to the group",
-                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            InkWell(
-              splashColor: const Color.fromRGBO(153, 185, 223, 1),
-              borderRadius: BorderRadius.circular(50),
-              onTap: () {},
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0,
-                  ),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Row(
-                  children: const [
-                    CircleAvatar(
-                      radius: 32,
-                      backgroundColor: Color.fromRGBO(153, 185, 223, 1),
-                      child: Center(
-                        child: Icon(
-                          Icons.link_outlined,
-                          weight: 0.1,
-                          size: 35,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Share the group link",
-                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      )),
-      // bottomNavigationBar: BottomBar(),
-    );
+    return groupDetails == null
+        ? NoGroupMemberScreen(groupInfo: widget.groupInfo)
+        : GroupInfoScreenWithMembers(
+            groupInfo: groupDetails!,
+          );
   }
 }

@@ -19,9 +19,7 @@ class GroupScreen extends StatefulWidget {
 }
 
 class _GroupScreenState extends State<GroupScreen> {
-  void navigateToGroupInfoScreen() {
-    
-  }
+  void navigateToGroupInfoScreen() {}
 
   CreateGroupServices createGroupServices = CreateGroupServices();
   List<dynamic>? groupDetails;
@@ -30,10 +28,8 @@ class _GroupScreenState extends State<GroupScreen> {
     print("Sahil");
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     String? userId = userProvider.user.id;
-    groupDetails = await createGroupServices.getGroupsDetails(context: context, userId: userId!);
-    // for (int i = 0; i < groupDetails.length; i++) {
-    //   groupsInfo.add(groupDetails[i]['groupName']);
-    // }
+    groupDetails = await createGroupServices.getCreatedGroupDetails(context: context, userId: userId!);
+
     setState(() {});
   }
 
@@ -84,16 +80,20 @@ class _GroupScreenState extends State<GroupScreen> {
                   itemCount: groupDetails!.length,
                   itemBuilder: (context, index) {
                     CreateGroup createGroup = CreateGroup(
+                      groupId: groupDetails![index]['_id'],
                       userId: groupDetails![index]['userId'],
                       groupName: groupDetails![index]['groupName'],
                       groupType: groupDetails![index]['groupType'],
                     );
                     return GestureDetector(
                       onTap: () {
-                        CreateGroupServices createGroupServices = CreateGroupServices();
+                        print("index : " + index.toString());
+                        print("jhsdvjhbsdvs");
+                        print(groupDetails!.length);
+                        // CreateGroupServices createGroupServices = CreateGroupServices();
                         final userProvider = Provider.of<UserProvider>(context, listen: false);
                         String? userId = userProvider.user.id;
-                        createGroupServices.getGroupsDetails(context: context, userId: userId!);
+                        // createGroupServices.getCreatedGroupDetails(context: context, userId: userId!);
                         Navigator.pushNamed(context, GroupInfoScreen.routeName, arguments: createGroup);
                       },
                       child: Padding(

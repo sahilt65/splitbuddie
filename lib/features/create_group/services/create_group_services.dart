@@ -10,6 +10,7 @@ import 'package:splitbuddie/constants/http_error_handelling.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
+import 'package:splitbuddie/providers/group_provider.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class CreateGroupServices {
@@ -48,11 +49,12 @@ class CreateGroupServices {
     }
   }
 
-  Future<List<dynamic>> getGroupsDetails({
+  Future<List<dynamic>> getCreatedGroupDetails({
     required BuildContext context,
     required String userId,
   }) async {
     try {
+      print("debugging");
       http.Response res = await http.get(
         Uri.parse("$uri/api/user/get-groups-details/$userId"),
         // body: createGroup.toJson(),
@@ -61,12 +63,14 @@ class CreateGroupServices {
         },
       );
 
-      print(res.body);
+      // print(res.body);
+
+      // var groupProvider = Provider.of<GroupProvider>(context, listen: false);
+      // groupProvider.setUser(res.body);
 
       Map<String, dynamic> newResponse = jsonDecode(res.body);
 
-      print(newResponse['groups'][1]['_id']);
-
+      print("Sahsdns");
       // print("Sahil1234" + newResponse['groups']);
       return newResponse['groups'];
     } catch (e) {

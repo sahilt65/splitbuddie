@@ -1,7 +1,9 @@
+import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbuddie/constants/colors.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/services/auth_services.dart';
 
 enum Auth {
@@ -138,10 +140,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             height: 10,
                           ),
                           CustomTextField(
-                            controller: _passwordController,
-                            hintText: "Password",
-                              textInputType: TextInputType.emailAddress
-                          ),
+                              controller: _passwordController,
+                              hintText: "Password",
+                              textInputType: TextInputType.emailAddress),
                           const SizedBox(
                             height: 10,
                           ),
@@ -153,6 +154,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 print("Sahil");
                                 signupUser();
                               }
+                              // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
                             },
                           ),
                         ],
@@ -201,7 +203,6 @@ class _AuthScreenState extends State<AuthScreen> {
                             controller: _passwordController,
                             hintText: "Password",
                             textInputType: TextInputType.emailAddress,
-
                           ),
                           const SizedBox(
                             height: 10,

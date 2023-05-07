@@ -1,16 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:splitbuddie/Models/contact_model.dart';
-import 'package:splitbuddie/Models/friend_model.dart';
 
+import 'package:splitbuddie/Models/contact_model.dart';
+import 'package:splitbuddie/Models/create_group_model.dart';
+import 'package:splitbuddie/Models/friend_model.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/features/groups/services/add_friends_to_user_friend_list.dart';
+import 'package:splitbuddie/features/groups/services/group_details_services.dart';
+import 'package:splitbuddie/providers/group_provider.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class AddFriendInGroupScreen extends StatefulWidget {
   static const String routeName = "/add-friend-in-group-screen";
-  const AddFriendInGroupScreen({super.key});
+  final CreateGroup groupInfo;
+  const AddFriendInGroupScreen({
+    Key? key,
+    required this.groupInfo,
+  }) : super(key: key);
 
   @override
   State<AddFriendInGroupScreen> createState() => _AddFriendInGroupScreenState();
@@ -27,7 +35,6 @@ class _AddFriendInGroupScreenState extends State<AddFriendInGroupScreen> {
     super.initState();
     getAllContacts();
     addToFriendList();
-
   }
 
   void getAllContacts() async {
@@ -62,15 +69,26 @@ class _AddFriendInGroupScreenState extends State<AddFriendInGroupScreen> {
   }
 
   AddFriendsToUserListServices addFriendsToUserListServices = AddFriendsToUserListServices();
+  PostGroupDetailsServices postGroupDetailsServices = PostGroupDetailsServices();
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     String? userId = userProvider.user.id;
+    final groupProvider = Provider.of<GroupProvider>(context, listen: false);
+    String? groupId = groupProvider.group.groupId;
     return Scaffold(
       appBar: AppBar(
         actions: [
           GestureDetector(
             onTap: () {
+              print("kjshfjhbdsdfjb" + groupId);
+              postGroupDetailsServices.postGroupDetails(
+                  adminUserId: userId!,
+                  groupId: widget.groupInfo.groupId!,
+                  groupName: widget.groupInfo.groupName,
+                  groupType: widget.groupInfo.groupType,
+                  groupMembers: friendList,
+                  context: context);
               addFriendsToUserListServices.addFriendsToUserList(
                 friendsList: friendList,
                 userId: userId,

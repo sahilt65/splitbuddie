@@ -33,7 +33,6 @@ const userSchema = mongoose.Schema({
             message :'Please enter a valid mobile number',
         }
     },
-
     password : {
         required : true,
         type : String,
