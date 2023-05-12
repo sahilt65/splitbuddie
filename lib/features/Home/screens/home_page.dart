@@ -6,6 +6,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
 import 'package:splitbuddie/constants/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splitbuddie/features/Home/widgets/home_card_widget.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signin_screen.dart';
@@ -30,34 +31,37 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: AppColors.screenBackgroundColor,
           // Color.fromRGBO(223, 235, 245, 1),
           body: Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            padding: EdgeInsets.only(top: 100.h),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //first Row
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28),
+                padding: EdgeInsets.symmetric(horizontal: 28.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "User Name",
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 25.sp, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 10.h,
                         ),
                         Text(
                           "Welcome Back",
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+                          style: TextStyle(
+                              fontSize: 25.sp, fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
                     Container(
-                      child: const CircleAvatar(
+                      child: CircleAvatar(
                         backgroundColor: Color.fromRGBO(153, 185, 223, 1),
-                        radius: 35,
+                        radius: 35.r,
                         backgroundImage: AssetImage(
                           "assets/images/test_person.png",
                         ),
@@ -70,7 +74,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 42, left: 28, right: 28),
                 child: Container(
-                  height: 190,
+                  height: 150.h,
 
                   width: double.infinity,
                   // color: Colors.black,
@@ -102,14 +106,20 @@ class _HomePageState extends State<HomePage> {
                           children: const [
                             Text(
                               "Account Balance",
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
                             ),
                             SizedBox(
                               height: 10,
                             ),
                             Text(
                               "₹ 12000",
-                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ],
                         ),
