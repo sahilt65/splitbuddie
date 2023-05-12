@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
@@ -23,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         // decoration: BoxDecoration(gradi),
@@ -30,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: AppColors.screenBackgroundColor,
           // Color.fromRGBO(223, 235, 245, 1),
           body: Padding(
-            padding: const EdgeInsets.only(top: 100),
+            padding: EdgeInsets.only(top: 100.h),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //first Row
               Padding(
