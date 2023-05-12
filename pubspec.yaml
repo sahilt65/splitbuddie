@@ -31,7 +31,6 @@ dependencies:
   line_icons: ^2.0.1
   curved_navigation_bar: ^1.0.3
   contacts_service: ^0.6.3
-  flutter_screenutil: ^5.8.0
   # cupertino_icons: ^1.0.5
 
 
