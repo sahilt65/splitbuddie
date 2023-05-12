@@ -51,10 +51,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
-      // home: GroupInfoScreen(
-      //   groupInfo: CreateGroup(userId: '123', groupName: "Flayt Mates", groupType: "Home"),
-      // ),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? const BottomBar()
+          : const AuthScreen(),
       // home: AuthScreen(),
     );
   }

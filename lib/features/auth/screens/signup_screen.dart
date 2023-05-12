@@ -2,6 +2,7 @@ import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbuddie/constants/colors.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/services/auth_services.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -77,8 +78,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         const Text(
                           "Welcome to SplitBuddie",
-                          style:
-                              TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: AppColors.mainAppFaintColor),
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.mainAppFaintColor),
                         ),
                         const SizedBox(
                           height: 30,
@@ -126,9 +129,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                   color: AppColors.mainAppColor,
                                   text: "Sign Up",
                                   onPressed: () {
-                                    if (_signUpFormKey.currentState!.validate()) {
+                                    if (_signUpFormKey.currentState!
+                                        .validate()) {
                                       print("Sahil");
-                                      signupUser();
+                                      // signupUser();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePage()));
                                     }
                                   },
                                 ),
