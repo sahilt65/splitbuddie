@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+      designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -60,8 +60,8 @@ class _MyAppState extends State<MyApp> {
           // home: GroupInfoScreen(
           //   groupInfo: CreateGroup(userId: '123', groupName: "Flayt Mates", groupType: "Home"),
           // ),
-          home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
-          // home: BottomBar(),
+          // home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
+          home: BottomBar(),
         );
       },
     );
