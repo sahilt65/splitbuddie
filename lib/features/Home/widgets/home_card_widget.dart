@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
 
 class HomeCardWidget extends StatefulWidget {
@@ -13,19 +14,21 @@ class HomeCardWidget extends StatefulWidget {
   final IconData insideCircularIcon;
   final double? leftPadding;
   final double? rightPadding;
+  Function() onTap;
+   HomeCardWidget({
+    Key? key,
+    required this.mainCardColorGradient,
+    required this.mainBorderColor,
+    required this.boxShadowColor,
+    required this.mainText,
+    required this.circularIconColorGradient,
+    required this.circularIconBorderColor,
+    required this.insideCircularIcon,
+    this.leftPadding,
+    this.rightPadding,
+    required this.onTap,
+  }) : super(key: key);
 
-  const HomeCardWidget(
-      {Key? key,
-      required this.mainCardColorGradient,
-      required this.mainBorderColor,
-      required this.boxShadowColor,
-      required this.mainText,
-      required this.circularIconColorGradient,
-      required this.circularIconBorderColor,
-      required this.insideCircularIcon,
-      this.leftPadding,
-      this.rightPadding})
-      : super(key: key);
 
   @override
   State<HomeCardWidget> createState() => _HomeCardWidgetState();

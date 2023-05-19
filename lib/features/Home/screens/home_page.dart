@@ -12,6 +12,7 @@ import 'package:splitbuddie/features/Home/widgets/home_card_widget.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signin_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signup_screen.dart';
+import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = "/home-page";
@@ -23,10 +24,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    print(width);
+    print(height);
     return Scaffold(
       body: Container(
         // decoration: BoxDecoration(gradi),
@@ -143,40 +147,44 @@ class _HomePageState extends State<HomePage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   HomeCardWidget(
-                    mainCardColorGradient: [
+                    onTap: () {
+                      Navigator.pushNamed(context, CreateGroupScreen.routeName);
+                    },
+                    mainCardColorGradient: const [
                       Color.fromRGBO(211, 233, 249, 1),
                       Color.fromRGBO(147, 183, 215, 1),
                       Color.fromRGBO(110, 166, 206, 1),
                     ],
-                    circularIconColorGradient: [
+                    circularIconColorGradient: const [
                       Color.fromRGBO(211, 233, 249, 1),
                       Color.fromRGBO(110, 166, 206, 1),
                     ],
-                    circularIconBorderColor: Color.fromRGBO(104, 148, 181, 1),
-                    mainBorderColor: Color.fromRGBO(93, 136, 164, 1),
-                    boxShadowColor: Color.fromRGBO(173, 209, 231, 1),
+                    circularIconBorderColor: const Color.fromRGBO(104, 148, 181, 1),
+                    mainBorderColor: const Color.fromRGBO(93, 136, 164, 1),
+                    boxShadowColor: const Color.fromRGBO(173, 209, 231, 1),
                     insideCircularIcon: Icons.add_outlined,
                     mainText: "Group",
                     leftPadding: 28,
                   ),
                   HomeCardWidget(
-                    mainCardColorGradient: [
+                    onTap: () {},
+                    mainCardColorGradient: const [
                       Color.fromRGBO(242, 202, 202, 1),
                       Color.fromRGBO(227, 186, 185, 1),
                       Color.fromRGBO(209, 160, 160, 1),
                       // Color.fromRGBO(179, 129, 129, 1),
                       Color.fromRGBO(209, 121, 121, 1),
                     ],
-                    mainBorderColor: Color.fromRGBO(179, 129, 129, 1),
-                    boxShadowColor: Color.fromRGBO(173, 209, 231, 1),
+                    mainBorderColor: const Color.fromRGBO(179, 129, 129, 1),
+                    boxShadowColor: const Color.fromRGBO(173, 209, 231, 1),
                     mainText: "Spend",
-                    circularIconColorGradient: [
+                    circularIconColorGradient: const [
                       Color.fromRGBO(242, 202, 202, 1),
                       Color.fromRGBO(209, 121, 121, 1),
                     ],
-                    circularIconBorderColor: Color.fromRGBO(104, 148, 181, 1),
+                    circularIconBorderColor: const Color.fromRGBO(104, 148, 181, 1),
                     insideCircularIcon: Icons.add_outlined,
                     rightPadding: 28,
                   ),
@@ -187,8 +195,9 @@ class _HomePageState extends State<HomePage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   HomeCardWidget(
+                    onTap: () {},
                     leftPadding: 28,
                     mainCardColorGradient: [
                       Color.fromRGBO(214, 245, 240, 1),
@@ -209,6 +218,7 @@ class _HomePageState extends State<HomePage> {
                     insideCircularIcon: Icons.add_outlined,
                   ),
                   HomeCardWidget(
+                      onTap: () {},
                       rightPadding: 28,
                       mainCardColorGradient: [
                         Color.fromRGBO(237, 186, 238, 1),
