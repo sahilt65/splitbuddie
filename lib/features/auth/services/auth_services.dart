@@ -32,7 +32,7 @@ class AuthService {
         token: "",
         groupDetails: [],
       );
-
+      print("1");
       http.Response res = await http.post(
         Uri.parse("$uri/api/signup"),
         body: user.toJson(),
@@ -40,13 +40,15 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+      print("2");
 
       // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, "Account Created! Login with the same credentials");
+          showSnackBar(
+              context, "Account Created! Login with the same credentials");
         },
       );
     } catch (e) {
@@ -82,7 +84,8 @@ class AuthService {
           print("Success1");
           SharedPreferences prefs = await SharedPreferences.getInstance();
           print("Success2");
-          Provider.of<UserProvider>(context, listen: false).setUser(res.body.toString());
+          Provider.of<UserProvider>(context, listen: false)
+              .setUser(res.body.toString());
           print("Success3");
           prefs.setString("x-auth-token", jsonDecode(res.body)['token']);
           print("Success4");
