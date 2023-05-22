@@ -45,81 +45,125 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                // begin: Alignment(0.14107348024845123, 0.5028655529022217),
-                // end: Alignment(-0.5028655529022217, 0.2614468097686768),
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-              Color.fromRGBO(169, 224, 243, 1),
-              Color.fromRGBO(105, 129, 202, 1),
-              Color.fromRGBO(105, 129, 202, 1)
-            ])),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 80),
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      height: 120,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const Text(
-                    "Welcome to SplitBuddie",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: AppColors.mainAppFaintColor),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Form(
-                      key: _signInFormKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            controller: _emailController,
-                            hintText: "Email",
-                            textInputType: TextInputType.emailAddress,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomTextField(
-                            controller: _passwordController,
-                            hintText: "Password",
-                            textInputType: TextInputType.emailAddress,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomButton(
-                            color: AppColors.mainAppColor,
-                            text: "Sign In",
-                            onPressed: () {
-                              if (_signInFormKey.currentState!.validate()) {
-                                signInUser();
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+      backgroundColor: const Color(0xffDBECF6),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 80),
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  height: 120,
+                ),
               ),
-            ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                "Welcome to SplitBuddie",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: AppColors.mainAppFaintColor),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: Form(
+                  key: _signInFormKey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey.shade100,
+                          ),
+                          child: TextField(
+                            textAlignVertical: TextAlignVertical.center,
+                            maxLines: 1,
+                            controller: _emailController,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              focusColor: Colors.white,
+                              contentPadding: EdgeInsets.only(
+                                  bottom: 15,
+                                  right: 12,
+                                  top: 12,
+                                  left: 12),
+                              filled: true,
+                              fillColor: Color(0xFFF2F5FD),
+                              hintText: 'Enter your email',
+                              hintStyle: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey.shade100,
+                          ),
+                          child: TextField(
+                            textAlignVertical: TextAlignVertical.center,
+                            maxLines: 1,
+                            obscureText: true,
+                            controller: _passwordController,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              focusColor: Colors.white,
+                              contentPadding: EdgeInsets.only(
+                                  bottom: 15,
+                                  right: 12,
+                                  top: 12,
+                                  left: 12),
+                              filled: true,
+                              fillColor: Color(0xFFF2F5FD),
+                              hintText: 'Enter Password',
+                              hintStyle: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomButton(
+                        color: AppColors.mainAppColor,
+                        text: "Login",
+                        onPressed: () {
+                          if (_signInFormKey.currentState!.validate()) {
+                            signInUser();
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const Text(
+                        "Forgot Password?",
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.mainAppColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

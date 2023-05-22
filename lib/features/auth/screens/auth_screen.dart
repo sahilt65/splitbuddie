@@ -13,7 +13,9 @@ enum Auth {
 
 class AuthScreen extends StatefulWidget {
   static const String routeName = '/auth-screen';
+
   const AuthScreen({super.key});
+
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
@@ -28,6 +30,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _mobController = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
@@ -58,170 +61,63 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
+      backgroundColor: const Color(0xffDBECF6),
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 80),
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                    height: 120,
+          padding: const EdgeInsets.only(left: 30),
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 80),
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  height: 120,
+                ),
+              ),
+              const SizedBox(
+                height: 80,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              CustomButton(
+                color: AppColors.mainAppColor,
+                text: "Sign Up",
+                onPressed: () {
+                  if (_signUpFormKey.currentState!.validate()) {
+                    print("Sahil");
+                    signupUser();
+                  }
+                  // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                  color: AppColors.mainAppColor,
+                  text: "Log In",
+                  onPressed: () {
+                    // if (_signUpFormKey.currentState!.validate()) {
+                    //   print("Sahil");
+                    //   signupUser();
+                  }
+                  // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
+                  // },
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Text(
-                  "Welcome to SplitBuddie",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: AppColors.mainAppFaintColor),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                ListTile(
-                  tileColor: Colors.black,
-                  //  _auth == Auth.signUp ? GlobalVariables.backgroundColor : GlobalVariables.greyBackgroundColor,
-                  title: const Text(
-                    "Create Account",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                    selectionColor: AppColors.mainAppFaintColor,
-                  ),
-                  leading: Radio(
-                      fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return AppColors.mainAppColor.withOpacity(.32);
-                        }
-                        return AppColors.mainAppColor;
-                      }),
-                      activeColor: AppColors.mainAppFaintColor,
-                      value: Auth.signUp,
-                      groupValue: _auth,
-                      onChanged: (Auth? value) {
-                        setState(() {
-                          _auth = value!;
-                        });
-                      }),
-                ),
-                if (_auth == Auth.signUp)
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    // color: Colors.blac,
-                    child: Form(
-                      key: _signUpFormKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            controller: _nameController,
-                            hintText: "Name",
-                            textInputType: TextInputType.name,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomTextField(
-                            controller: _emailController,
-                            hintText: "Email",
-                            textInputType: TextInputType.emailAddress,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomTextField(
-                            controller: _mobController,
-                            hintText: "Mobile Number",
-                            textInputType: TextInputType.number,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomTextField(
-                              controller: _passwordController,
-                              hintText: "Password",
-                              textInputType: TextInputType.emailAddress),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomButton(
-                            color: AppColors.mainAppColor,
-                            text: "Sign Up",
-                            onPressed: () {
-                              if (_signUpFormKey.currentState!.validate()) {
-                                print("Sahil");
-                                signupUser();
-                              }
-                              // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ListTile(
-                  // tileColor: Colors.yellow,
-                  // _auth == Auth.signIn ? GlobalVariables.backgroundColor : GlobalVariables.greyBackgroundColor,
-                  title: const Text(
-                    "Sign in",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  leading: Radio(
-                      fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return AppColors.mainAppColor.withOpacity(.32);
-                        }
-                        return AppColors.mainAppColor;
-                      }),
-                      activeColor: AppColors.mainAppFaintColor,
-                      value: Auth.signIn,
-                      groupValue: _auth,
-                      onChanged: (Auth? value) {
-                        setState(() {
-                          _auth = value!;
-                        });
-                      }),
-                ),
-                if (_auth == Auth.signIn)
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Form(
-                      key: _signInFormKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            controller: _emailController,
-                            hintText: "Email",
-                            textInputType: TextInputType.emailAddress,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomTextField(
-                            controller: _passwordController,
-                            hintText: "Password",
-                            textInputType: TextInputType.emailAddress,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomButton(
-                            color: AppColors.mainAppColor,
-                            text: "Sign In",
-                            onPressed: () {
-                              if (_signInFormKey.currentState!.validate()) {
-                                signInUser();
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-              ],
-            ),
+              const SizedBox(
+                height: 360,
+              ),
+              const Text(
+                "Terms | Privacy Policy | Contact Us",
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.mainAppFaintColor),
+              ),
+            ],
           ),
         ),
       ),
