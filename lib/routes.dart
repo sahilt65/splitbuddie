@@ -69,10 +69,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       );
 
     case AddExpenseScreen.routeName:
-    var groupId = routeSettings.arguments as String;
+      var groupId = routeSettings.arguments as String;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) =>  AddExpenseScreen(groupId: groupId,),
+        builder: (_) => AddExpenseScreen(
+          groupId: groupId,
+        ),
       );
 
     default:
