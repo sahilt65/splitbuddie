@@ -4,10 +4,12 @@ import 'package:flutter/src/widgets/placeholder.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:splitbuddie/Models/get_user_model.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:splitbuddie/features/Home/home_services.dart';
 import 'package:splitbuddie/features/Home/widgets/home_card_widget.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signin_screen.dart';
@@ -29,6 +31,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
+  HomeServices homeServices = HomeServices();
+  UserModel? user;
+  bool isUserLoaded = false;
+  Future getuserDetails() async {
+    user = await homeServices.getUserDetails();
+    if (user != null) {
+      setState(() {
+        isUserLoaded = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getuserDetails();
+  }
+  
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -36,7 +57,8 @@ class _HomePageState extends State<HomePage> {
     print(width);
     print(height);
     return Scaffold(
-      body: Container(
+      body: isUserLoaded
+          ? Container(
         // decoration: BoxDecoration(gradi),
         child: Scaffold(
           backgroundColor: AppColors.screenBackgroundColor,
@@ -56,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "User Name",
+                                  user!.name!,
                             style: TextStyle(
                                 fontSize: 25.sp, fontWeight: FontWeight.bold),
                           ),
@@ -149,9 +171,12 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Image.asset(
-                          "assets/images/test_person.png",
-                          height: 150.h,
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Image.asset(
+                                  "assets/images/3d_person_image.png",
+                                  height: 270.h,
+                                ),
                         )
                       ],
                     ),
@@ -237,7 +262,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
+            )
+          : const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
     );
   }
 }
