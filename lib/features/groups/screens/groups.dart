@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splitbuddie/common/widgets/bottom_bar.dart';
-import 'package:splitbuddie/features/groups/screens/group_main.dart';
 import 'package:splitbuddie/features/groups/widgets/Horizontalcard.dart';
 
 import '../widgets/Verticalcard.dart';
