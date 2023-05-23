@@ -45,7 +45,7 @@ class CreateGroupServices {
             Navigator.pushNamed(context, GroupScreen.routeName);
           });
     } catch (e) {
-      showSnackBar(context, e.toString());
+      
     }
   }
 

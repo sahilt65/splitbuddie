@@ -16,6 +16,7 @@ import 'package:splitbuddie/features/create_group/screens/create_group_screen.da
 import 'package:splitbuddie/profile/screens/profilebox.dart';
 
 import '../../groups/widgets/Horizontalcard.dart';
+import 'package:splitbuddie/features/expense/screens/expense_screen.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = "/home-page";
@@ -206,7 +207,10 @@ class _HomePageState extends State<HomePage> {
                       rightPadding: 0.w,
                     ),
                     HomeCardWidget(
-                      onTap: () {},
+                      onTap: () {
+                        print("Sahil");
+                        Navigator.pushNamed(context, ExpenseScreen.routeName);
+                      },
                       leftPadding: 0,
                       rightPadding: 20.w,
                       mainCardColorGradient: [

@@ -35,9 +35,7 @@ class HomeCardWidget extends StatefulWidget {
 }
 
 class _HomeCardWidgetState extends State<HomeCardWidget> {
-  navigateToCreateGroup() {
-    Navigator.pushNamed(context, CreateGroupScreen.routeName);
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,7 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
           left: widget.leftPadding != null ? widget.leftPadding! : 0,
           right: widget.rightPadding != null ? widget.rightPadding! : 0),
       child: InkWell(
-        onTap: navigateToCreateGroup,
+        onTap: widget.onTap,
         child: Container(
           height: 140.h,
           width: 120.w,
@@ -84,9 +82,11 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                       shape: BoxShape.circle,
                       border: Border.all(color: widget.circularIconBorderColor),
                     ),
-                    child: Icon(
-                      widget.insideCircularIcon,
-                      size: 40.h,
+                    child: Center(
+                      child: Icon(
+                        widget.insideCircularIcon,
+                        size: 40.h,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -95,7 +95,7 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                   Text(
                     widget.mainText,
                     style:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 11.sp),
                   )
                 ],
               )),
