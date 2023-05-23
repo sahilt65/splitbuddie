@@ -52,6 +52,17 @@ authRouter.post("/api/signin" , async (req, res)=>{
     }
 })
 
+authRouter.get("/api/get-user/:userId" , async (req, res)=>{
+    console.log("sahil");
+    try{
+        console.log("sahil");
+        const user = await User.findById(req.params.userId);
+        res.status(200).json(user)
+    }catch(e){
+        res.status(500).json({ error: e.message });
+    }
+})
+
 authRouter.post("/tokenIsValid", async (req, res) => {
     try {
       const token = req.header("x-auth-token");
