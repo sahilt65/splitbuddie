@@ -110,14 +110,20 @@ userRouter.post("/api/user/add-expense", async (req,res)=>{
             console.log('inside if');
             return res.json(expense);
         }
-        // console.log("sahil1");
-        // console.log("Posted Successfully");
-        
     }catch(e){
         console.log(e);
     }
 });
 
-userRouter.get("")
+userRouter.get("/api/user/get-expense/:groupId", async(req, res)=>{
+    try{  
+        console.log("Sahil"); 
+        var expense = await Expense.findOne({groupId : req.params.groupId});
+        console.log("Sahil22");
 
+        res.status(200).json(expense);
+    }catch(e){
+        res.status(500).json({"msg" : "Unexpeted Error"})
+    }
+})
 module.exports = userRouter;

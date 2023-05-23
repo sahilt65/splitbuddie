@@ -45,7 +45,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   Future addExpense() async {
     List<FriendsList> friendsList = [];
     for (var e in groups![0].groupMembers!) {
-      FriendsList friend = FriendsList(name: e.name, number: e.number);
+      String eachSpend = (double.parse(spendController.text) / groups![0].groupMembers!.length).toStringAsFixed(2);
+      FriendsList friend = FriendsList(name: e.name, number: e.number, spend: double.parse(eachSpend));
       friendsList.add(friend);
     }
     print("///////////////////////");
@@ -54,6 +55,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         spend: double.parse(spendController.text),
         groupId: widget.groupId,
         friendList: friendsList,
+        
         context: context);
   }
 

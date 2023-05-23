@@ -8,9 +8,7 @@ const expenseModel = mongoose.Schema({
         trim : true,
         
     },
-    friendsList : [
-        [Map]
-    ],
+    friendsList : [],
     groupId : {
         required : true,
         type : String,
