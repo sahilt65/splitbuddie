@@ -6,6 +6,7 @@ import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
 import 'package:splitbuddie/features/groups/screens/add_friends_in_group_screen.dart';
 import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
+import 'package:splitbuddie/features/groups/screens/group_main.dart';
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {

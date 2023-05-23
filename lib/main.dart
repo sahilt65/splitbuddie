@@ -8,6 +8,7 @@ import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/services/auth_services.dart';
 import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
+import 'package:splitbuddie/features/groups/screens/groups.dart';
 import 'package:splitbuddie/features/introduction/intro_slider.dart';
 import 'package:splitbuddie/providers/group_provider.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
@@ -63,7 +64,7 @@ class _MyAppState extends State<MyApp> {
           home: Provider.of<UserProvider>(context).user.token.isNotEmpty
               ? const BottomBar()
               : const AuthScreen(),
-          // home: BottomBar(),
+          //home: BottomBar(),
         );
       },
     );

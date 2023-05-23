@@ -13,6 +13,9 @@ import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signin_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signup_screen.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
+import 'package:splitbuddie/profile/screens/profilebox.dart';
+
+import '../../groups/widgets/Horizontalcard.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = "/home-page";
@@ -67,11 +70,21 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       Container(
-                        child: CircleAvatar(
-                          backgroundColor: Color.fromRGBO(153, 185, 223, 1),
-                          radius: 35.r,
-                          backgroundImage: AssetImage(
-                            "assets/images/test_person.png",
+                        child: GestureDetector(
+                          onTap: () {
+                            print('Ala ka ree');
+                            showDialog(
+                                context: context,
+                                builder: (ctx) {
+                                  return Profilebox();
+                                });
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Color.fromRGBO(153, 185, 223, 1),
+                            radius: 35.r,
+                            backgroundImage: AssetImage(
+                              "assets/images/test_person.png",
+                            ),
                           ),
                         ),
                       )
