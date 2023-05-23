@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
+import 'package:splitbuddie/constants/logger.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:splitbuddie/features/expense/models/expense_models.dart';
 import 'package:splitbuddie/features/groups/models/group_model.dart';
+import 'package:logger/logger.dart';
 
 class ExpenseServices {
   Future addExpense({
@@ -19,6 +21,7 @@ class ExpenseServices {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       var obtainId = pref.getString("id");
+  
       print(description);
       Expense expense = Expense(
         description: description,
@@ -36,6 +39,7 @@ class ExpenseServices {
           // 'x-auth-token': userProvider.user.token,
         },
       );
+      logger.i("Add Expense Api : $res");
 
       if (res.statusCode == 200) {
         print("Success");
@@ -60,6 +64,7 @@ class ExpenseServices {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+      logger.i("Get Expense Api : $res");
       print("sahbdfshjbfd");
       List<Groups> groups = groupsFromJson(res.body);
       print(res.body);
@@ -71,6 +76,22 @@ class ExpenseServices {
     } catch (e) {
       print(e.toString());
       showSnackBar(context, e.toString());
+      return null;
+    }
+  }
+
+  Future<Expense?> getExpenseDetails({required String groupId, required BuildContext context}) async {
+    try {
+      http.Response res = await http.get(Uri.parse("$uri/api/user/get-expense/$groupId"));
+      if (res.statusCode == 200) {
+        Expense expense = expenseFromJson(res.body);
+        print("-------------");
+        print(res.body);
+        return expense;
+      }
+    } catch (e) {
+      print("sasjn----");
+      print(e.toString());
       return null;
     }
   }
