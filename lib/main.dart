@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splitbuddie/Models/create_group_model.dart';
 import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/constants/colors.dart';
@@ -21,25 +22,40 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => GroupProvider(),
     ),
-  ], child: const MyApp()));
+  ], child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  AuthService authService = AuthService();
+  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
+
+  String userId = "";
+
+  void getValidation() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var obtainId = pref.getString("id");
+    // pref.remove("id");
+    if (obtainId != null) {
+      setState(() {
+        userId = obtainId;
+      });
+    }
+  }
+
   @override
   void initState() {
-    authService.getUserData(context: context);
+    // TODO: implement initState
+    getValidation();
     super.initState();
   }
 
-  // This widget is the root of your application.
+  // AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -48,6 +64,7 @@ class _MyAppState extends State<MyApp> {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          scaffoldMessengerKey: _messangerKey,
           title: 'SplitBuddie',
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData(
@@ -60,9 +77,7 @@ class _MyAppState extends State<MyApp> {
           // home: GroupInfoScreen(
           //   groupInfo: CreateGroup(userId: '123', groupName: "Flayt Mates", groupType: "Home"),
           // ),
-          home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-              ? const BottomBar()
-              : const AuthScreen(),
+          home: userId.isNotEmpty ? const BottomBar() : const AuthScreen(),
           // home: BottomBar(),
         );
       },

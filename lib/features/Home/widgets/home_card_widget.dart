@@ -82,9 +82,11 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                       shape: BoxShape.circle,
                       border: Border.all(color: widget.circularIconBorderColor),
                     ),
-                    child: Icon(
-                      widget.insideCircularIcon,
-                      size: 40.h,
+                    child: Center(
+                      child: Icon(
+                        widget.insideCircularIcon,
+                        size: 40.h,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -93,7 +95,7 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                   Text(
                     widget.mainText,
                     style:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 11.sp),
                   )
                 ],
               )),

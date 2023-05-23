@@ -9,12 +9,12 @@ authRouter.post("/api/signup", async (req, res)=>{
         console.log("hey0");
         const { userId, name, email, mob, password } = req.body;
         console.log("hey");
-        console.log(re.body);
+        console.log(req.body);
 
         
         const existingUser = await User.findOne({email});
         if(existingUser){
-            return req.status(400).json({msg:"User with same email address already exists"});
+            return res.status(400).json({msg:"User with same email address already exists"});
         }
         console.log("hey1");
 

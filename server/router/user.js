@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 const userRouter = express.Router();
 const CreateGroup = require("../models/create_group_model");
 const FriendModel = require('../models/friend_model');
-const User = require("../models/user");
+const Expense = require('../models/expense_model');
 
 userRouter.post("/api/user/create-group", async (req, res) => {
     try{
@@ -82,7 +82,6 @@ userRouter.post("/api/user/add-friends-to-user", async (req, res) => {
 //Get User friend List
 userRouter.get("/api/user/get-user-friend-list/:userId", async  (req, res) => {
     try{
-        
         console.log(req.params.userId);
         var friendList = await FriendModel.find({userId : req.params.userId});
         console.log("qwedsfds");
@@ -93,5 +92,32 @@ userRouter.get("/api/user/get-user-friend-list/:userId", async  (req, res) => {
         res.status(500).json({ error: e.message });
     } 
 })
+
+//Add Equally Money Spliiting
+userRouter.post("/api/user/add-expense", async (req,res)=>{
+    try{
+        console.log(req.body);
+        const {friendsList, groupId, description, total_expense, payer} = req.body;
+        console.log(req.body);
+        // const result = await 
+        let expense = new Expense({groupId:groupId, description : description, friendsList:friendsList,total_expense:total_expense, payer : payer})
+        console.log("sahil");
+
+        expense = await expense.save();
+        
+        if(expense){
+            console.log(expense);
+            console.log('inside if');
+            return res.json(expense);
+        }
+        // console.log("sahil1");
+        // console.log("Posted Successfully");
+        
+    }catch(e){
+        console.log(e);
+    }
+});
+
+userRouter.get("")
 
 module.exports = userRouter;

@@ -22,7 +22,7 @@ const Group = mongoose.Schema({
         required : true,
         type : String,
     },
-    groupMembers : [Map,]
+    groupMembers : [Map]
 })
 
 module.exports = mongoose.model("Group",Group);

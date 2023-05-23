@@ -1,67 +1,69 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:splitbuddie/Models/friend_list_model.dart';
-import 'package:splitbuddie/Models/friend_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:splitbuddie/Models/main_group_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
 import 'package:splitbuddie/constants/utils.dart';
+import 'package:splitbuddie/features/expense/models/expense_models.dart';
 import 'package:splitbuddie/features/groups/models/group_model.dart';
 
-class PostGroupDetailsServices {
-  void postGroupDetails({
-    required String adminUserId,
+class ExpenseServices {
+  Future addExpense({
+    required String description,
+    required double spend,
     required String groupId,
-    required String groupName,
-    required String groupType,
-    required List<Friend> groupMembers,
+    required List<FriendsList> friendList,
     required BuildContext context,
   }) async {
     try {
-      Group groupDetails = Group(
-        adminUserId: adminUserId,
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      var obtainId = pref.getString("id");
+      print(description);
+      Expense expense = Expense(
+        description: description,
+        totalExpense: spend,
+        friendsList: friendList,
         groupId: groupId,
-        groupName: groupName,
-        groupType: groupType,
-        groupMembers: groupMembers,
+        payer: obtainId,
       );
+
       http.Response res = await http.post(
-        Uri.parse("$uri/api/group/post-group-details"),
-        body: groupDetails.toJson(),
+        Uri.parse("$uri/api/user/add-expense"),
+        body: expenseToJson(expense),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           // 'x-auth-token': userProvider.user.token,
         },
       );
+
+      if (res.statusCode == 200) {
+        print("Success");
+        Navigator.pop(context);
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
   }
 
-  Future<Map<String, dynamic>?> getGroupDetails({
+  Future<List<Groups>?> getGroupDetails({
     required String groupId,
     required BuildContext context,
   }) async {
+    print("---------------------------------");
+    print("$uri/api/group/get-group-info/$groupId");
+
     try {
       http.Response res = await http.get(
         Uri.parse("$uri/api/group/get-group-info/$groupId"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          // 'x-auth-token': userProvider.user.token,
         },
       );
       print("sahbdfshjbfd");
-      // print(res.body.runtimeType);
-      // print(jsonDecode(res.body)[0]);
       List<Groups> groups = groupsFromJson(res.body);
-      if (res.body == "[]") {
-        return null;
-      } else {
-        print(res.body);
-        Map<String, dynamic> groupDetails = jsonDecode(res.body)[0] ?? {};
-        return groupDetails;
-      }
+      print(res.body);
+      return groups;
 
       // Group group = Group.fromJson(jsonDecode(res.body)[0]);
       // print(group.adminUserId);
@@ -69,7 +71,7 @@ class PostGroupDetailsServices {
     } catch (e) {
       print(e.toString());
       showSnackBar(context, e.toString());
-      return {};
+      return null;
     }
   }
 }

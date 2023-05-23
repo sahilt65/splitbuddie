@@ -132,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     if (_signUpFormKey.currentState!
                                         .validate()) {
                                       print("Sahil");
-                                      // signupUser();
+                                      signupUser();
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
