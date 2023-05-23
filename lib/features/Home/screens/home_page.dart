@@ -4,15 +4,20 @@ import 'package:flutter/src/widgets/placeholder.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:splitbuddie/Models/get_user_model.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:splitbuddie/features/Home/home_services.dart';
 import 'package:splitbuddie/features/Home/widgets/home_card_widget.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signin_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signup_screen.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
+import 'package:splitbuddie/profile/screens/profilebox.dart';
+
+import '../../groups/widgets/Horizontalcard.dart';
 import 'package:splitbuddie/features/expense/screens/expense_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,6 +31,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
+  HomeServices homeServices = HomeServices();
+  UserModel? user;
+  bool isUserLoaded = false;
+  Future getuserDetails() async {
+    user = await homeServices.getUserDetails();
+    if (user != null) {
+      setState(() {
+        isUserLoaded = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getuserDetails();
+  }
+  
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -33,7 +57,8 @@ class _HomePageState extends State<HomePage> {
     print(width);
     print(height);
     return Scaffold(
-      body: Container(
+      body: isUserLoaded
+          ? Container(
         // decoration: BoxDecoration(gradi),
         child: Scaffold(
           backgroundColor: AppColors.screenBackgroundColor,
@@ -53,36 +78,30 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "User Name",
-                            style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                                  user!.name!,
+                            style: TextStyle(
+                                fontSize: 25.sp, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             height: 10.h,
                           ),
                           Text(
                             "Welcome Back",
-                            style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                                fontSize: 25.sp, fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          print("shjs");
-                          showDialog(
-                              context: context,
-                              builder: (ctx) {
-                                return AlertDialog(
-                                  backgroundColor: Colors.white,
-                                  title: Container(
-                                    height: 200,
-                                    width: 300,
-                                    color: Colors.white,
-                                  ),
-                                  alignment: Alignment.topRight,
-                                );
-                              });
-                        },
-                        child: Container(
+                      Container(
+                        child: GestureDetector(
+                          onTap: () {
+                            print('Ala ka ree');
+                            showDialog(
+                                context: context,
+                                builder: (ctx) {
+                                  return Profilebox();
+                                });
+                          },
                           child: CircleAvatar(
                             backgroundColor: Color.fromRGBO(153, 185, 223, 1),
                             radius: 35.r,
@@ -131,14 +150,20 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text(
                                 "Account Balance",
-                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w300, color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white),
                               ),
                               SizedBox(
                                 height: 10.h,
                               ),
                               Text(
                                 "₹ 12000",
-                                style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ],
                           ),
@@ -146,9 +171,12 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Image.asset(
-                          "assets/images/test_person.png",
-                          height: 150.h,
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Image.asset(
+                                  "assets/images/3d_person_image.png",
+                                  height: 270.h,
+                                ),
                         )
                       ],
                     ),
@@ -162,7 +190,8 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     HomeCardWidget(
                       onTap: () {
-                        Navigator.pushNamed(context, CreateGroupScreen.routeName);
+                        Navigator.pushNamed(
+                            context, CreateGroupScreen.routeName);
                       },
                       mainCardColorGradient: const [
                         Color.fromRGBO(211, 233, 249, 1),
@@ -173,7 +202,8 @@ class _HomePageState extends State<HomePage> {
                         Color.fromRGBO(211, 233, 249, 1),
                         Color.fromRGBO(110, 166, 206, 1),
                       ],
-                      circularIconBorderColor: const Color.fromRGBO(104, 148, 181, 1),
+                      circularIconBorderColor:
+                          const Color.fromRGBO(104, 148, 181, 1),
                       mainBorderColor: const Color.fromRGBO(93, 136, 164, 1),
                       boxShadowColor: const Color.fromRGBO(173, 209, 231, 1),
                       insideCircularIcon: Icons.add_outlined,
@@ -196,7 +226,8 @@ class _HomePageState extends State<HomePage> {
                         Color.fromRGBO(242, 202, 202, 1),
                         Color.fromRGBO(209, 121, 121, 1),
                       ],
-                      circularIconBorderColor: const Color.fromRGBO(104, 148, 181, 1),
+                      circularIconBorderColor:
+                          const Color.fromRGBO(104, 148, 181, 1),
                       insideCircularIcon: Icons.add_outlined,
                       rightPadding: 0.w,
                     ),
@@ -231,7 +262,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
+            )
+          : const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
     );
   }
 }
