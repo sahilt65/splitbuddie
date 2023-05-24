@@ -2,8 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/features/Home/screens/home_page.dart';
+import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/friends/screens/friends_screen.dart';
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
+
+import '../../features/auth/screens/signin_screen.dart';
+import '../../features/auth/screens/signup_screen.dart';
 
 class BottomBar extends StatefulWidget {
   final int? indexFromOtherPage;
@@ -29,9 +33,10 @@ class _BottomBarState extends State<BottomBar> {
 
     FriendsScreen(),
 
-    Center(
-      child: Text("History"),
-    ),
+    // Center(
+    //   child: Text("History"),
+    // ),
+    AuthScreen(),
     
 
   ];

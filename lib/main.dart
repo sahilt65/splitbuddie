@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/services/auth_services.dart';
 import 'package:splitbuddie/providers/group_provider.dart';
@@ -54,8 +55,8 @@ class _MyAppState extends State<MyApp> {
           // home: GroupInfoScreen(
           //   groupInfo: CreateGroup(userId: '123', groupName: "Flayt Mates", groupType: "Home"),
           // ),
-          // home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
-          home: const AuthScreen(),
+          home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
+          // home:BottomBar(),
         );
       },
     );

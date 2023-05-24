@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
@@ -62,63 +63,61 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffDBECF6),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(top: 80),
-                child: Image.asset(
-                  "assets/images/logo.png",
-                  height: 120,
-                ),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              // padding: const EdgeInsets.only(top: 80),
+              child: Image.asset(
+                "assets/images/logo.png",
+                height: 120.h,
               ),
-              const SizedBox(
-                height: 80,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              CustomButton(
+            ),
+             SizedBox(
+              height: 80.h,
+            ),
+             SizedBox(
+              height: 30.h,
+            ),
+            CustomButton(
+              color: AppColors.mainAppColor,
+              text: "Sign Up",
+              onPressed: () {
+                if (_signUpFormKey.currentState!.validate()) {
+                  print("Sahil");
+                  signupUser();
+                }
+                // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomButton(
                 color: AppColors.mainAppColor,
-                text: "Sign Up",
+                text: "Log In",
                 onPressed: () {
-                  if (_signUpFormKey.currentState!.validate()) {
-                    print("Sahil");
-                    signupUser();
-                  }
-                  // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomButton(
-                  color: AppColors.mainAppColor,
-                  text: "Log In",
-                  onPressed: () {
-                    // if (_signUpFormKey.currentState!.validate()) {
-                    //   print("Sahil");
-                    //   signupUser();
-                  }
-                  // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
-                  // },
-                  ),
-              const SizedBox(
-                height: 360,
-              ),
-              const Text(
+                  // if (_signUpFormKey.currentState!.validate()) {
+                  //   print("Sahil");
+                  //   signupUser();
+                }
+                // Navigator.push(context, MaterialPageRoute(builder: (ctx) => BottomBar()));
+                // },
+                ),
+
+             Align(
+               alignment: Alignment.bottomCenter,
+               child: Text(
                 "Terms | Privacy Policy | Contact Us",
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: AppColors.mainAppFaintColor),
-              ),
-            ],
-          ),
+            ),
+             ),
+          ],
         ),
       ),
     );
