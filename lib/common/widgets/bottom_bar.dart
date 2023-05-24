@@ -4,7 +4,9 @@ import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/friends/screens/friends_screen.dart';
+import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
+import 'package:splitbuddie/features/groups/screens/groups.dart';
 
 import '../../features/auth/screens/signin_screen.dart';
 import '../../features/auth/screens/signup_screen.dart';
@@ -28,17 +30,9 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = const [
     HomePage(),
-
     GroupScreen(),
-
     FriendsScreen(),
-
-    // Center(
-    //   child: Text("History"),
-    // ),
-    AuthScreen(),
-    
-
+    Groups(),
   ];
 
   @override
@@ -77,7 +71,6 @@ class _BottomBarState extends State<BottomBar> {
             BottomNavigationBarItem(
               icon: Icon(Icons.group_outlined),
               label: "Groups",
-              
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),

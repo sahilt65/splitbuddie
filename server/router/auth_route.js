@@ -6,12 +6,18 @@ const auth = require("../middleware/auth");
 
 authRouter.post("/api/signup", async (req, res)=>{
     try{
+        console.log("hey0");
         const { userId, name, email, mob, password } = req.body;
+        console.log("hey");
+        console.log(req.body);
+
         
         const existingUser = await User.findOne({email});
         if(existingUser){
-            return req.status(400).json({msg:"User with same email address already exists"});
+            return res.status(400).json({msg:"User with same email address already exists"});
         }
+        console.log("hey1");
+
 
         let user = new User({
             userId, name, email, mob, password
@@ -41,6 +47,17 @@ authRouter.post("/api/signin" , async (req, res)=>{
 
         const token = jwt.sign({ id: user._id }, "passwordKey");
         res.json({token, ...user._doc})
+    }catch(e){
+        res.status(500).json({ error: e.message });
+    }
+})
+
+authRouter.get("/api/get-user/:userId" , async (req, res)=>{
+    console.log("sahil");
+    try{
+        console.log("sahil");
+        const user = await User.findById(req.params.userId);
+        res.status(200).json(user)
     }catch(e){
         res.status(500).json({ error: e.message });
     }

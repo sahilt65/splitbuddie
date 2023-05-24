@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
 
@@ -15,7 +16,7 @@ class HomeCardWidget extends StatefulWidget {
   final double? leftPadding;
   final double? rightPadding;
   Function() onTap;
-   HomeCardWidget({
+  HomeCardWidget({
     Key? key,
     required this.mainCardColorGradient,
     required this.mainBorderColor,
@@ -29,15 +30,12 @@ class HomeCardWidget extends StatefulWidget {
     required this.onTap,
   }) : super(key: key);
 
-
   @override
   State<HomeCardWidget> createState() => _HomeCardWidgetState();
 }
 
 class _HomeCardWidgetState extends State<HomeCardWidget> {
-  navigateToCreateGroup() {
-    Navigator.pushNamed(context, CreateGroupScreen.routeName);
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +44,20 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
           left: widget.leftPadding != null ? widget.leftPadding! : 0,
           right: widget.rightPadding != null ? widget.rightPadding! : 0),
       child: InkWell(
-        onTap: navigateToCreateGroup,
+        onTap: widget.onTap,
         child: Container(
-          height: 170,
-          width: 170,
+          height: 140.h,
+          width: 120.w,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
             border: Border.all(width: 1, color: widget.mainBorderColor),
             boxShadow: [
               BoxShadow(
                 color: widget.boxShadowColor,
                 offset: const Offset(0, 4),
-                blurRadius: 10.0,
-                spreadRadius: 2.0,
+                blurRadius: 10.0.r,
+                spreadRadius: 2.0.r,
               )
             ],
             gradient: LinearGradient(
@@ -69,12 +67,12 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
             ),
           ),
           child: Padding(
-              padding: const EdgeInsets.only(top: 30, left: 40, right: 40),
+              padding: EdgeInsets.only(top: 30.h, left: 40.w, right: 40.w),
               child: Column(
                 children: [
                   Container(
-                    height: 70,
-                    width: 70,
+                    height: 50.h,
+                    width: 50.w,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
@@ -84,17 +82,20 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                       shape: BoxShape.circle,
                       border: Border.all(color: widget.circularIconBorderColor),
                     ),
-                    child: Icon(
-                      widget.insideCircularIcon,
-                      size: 40,
+                    child: Center(
+                      child: Icon(
+                        widget.insideCircularIcon,
+                        size: 40.h,
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 10.h,
                   ),
                   Text(
                     widget.mainText,
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                    style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 11.sp),
                   )
                 ],
               )),

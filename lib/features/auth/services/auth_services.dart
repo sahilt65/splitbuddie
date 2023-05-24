@@ -10,12 +10,11 @@ import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/constants/http_error_handelling.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
-import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class AuthService {
   //sign up
-  void signUpUser({
+  Future signUpUser({
     required BuildContext context,
     required String email,
     required String password,
@@ -32,7 +31,9 @@ class AuthService {
         token: "",
         groupDetails: [],
       );
-
+      print("1");
+      print(user.toJson());
+      print("$uri/api/signup");
       http.Response res = await http.post(
         Uri.parse("$uri/api/signup"),
         body: user.toJson(),
@@ -41,15 +42,24 @@ class AuthService {
         },
       );
 
+      User _user = User.fromJson(res.body);
+      print("2");
       // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
-        onSuccess: () {
+        onSuccess: () async {
+          print(res.body);
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          final provider = Provider.of<UserProvider>(context, listen: false);
+          provider.setUser(res.body);
+          print("id stored");
+          prefs.setString("id", _user.id!);
           showSnackBar(context, "Account Created! Login with the same credentials");
         },
       );
     } catch (e) {
+      print(e);
       showSnackBar(context, e.toString());
     }
   }
@@ -85,6 +95,7 @@ class AuthService {
           Provider.of<UserProvider>(context, listen: false).setUser(res.body.toString());
           print("Success3");
           prefs.setString("x-auth-token", jsonDecode(res.body)['token']);
+          prefs.setString("id", jsonDecode(res.body)['_id']);
           print("Success4");
           Navigator.pushNamedAndRemoveUntil(
             context,

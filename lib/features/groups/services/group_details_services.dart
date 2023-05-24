@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:splitbuddie/Models/main_group_model.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
 import 'package:splitbuddie/constants/utils.dart';
+import 'package:splitbuddie/features/groups/models/group_model.dart';
 
 class PostGroupDetailsServices {
   void postGroupDetails({
@@ -53,7 +54,7 @@ class PostGroupDetailsServices {
       print("sahbdfshjbfd");
       // print(res.body.runtimeType);
       // print(jsonDecode(res.body)[0]);
-
+      List<Groups> groups = groupsFromJson(res.body);
       if (res.body == "[]") {
         return null;
       } else {
