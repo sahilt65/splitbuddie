@@ -5,10 +5,12 @@ const userRouter = express.Router();
 const CreateGroup = require("../models/create_group_model");
 const FriendModel = require('../models/friend_model');
 const Expense = require('../models/expense_model');
+const Groups = require("../models/group_model");
 
 userRouter.post("/api/user/create-group", async (req, res) => {
     try{
-        // console.log("sahil");
+        console.log("sahil"); 
+        console.log(req.body);
         const {userId, groupName, groupType} = req.body;
         let createGroup = new CreateGroup({
             userId : userId, 
@@ -17,11 +19,12 @@ userRouter.post("/api/user/create-group", async (req, res) => {
         });
 
         createGroup = await createGroup.save();
-
+        console.log(createGroup);
+        console.log("12s");
         res.json(createGroup);
 
     }catch(e){
-        console.log('sahil');
+        console.log('sahil55t');
         res.status(500).json({ error: e.message });
     } 
 })
@@ -31,6 +34,20 @@ userRouter.get("/api/user/get-groups-details/:userId", async  (req, res) => {
         console.log("sahil");
         console.log(req.params.userId);
         var groups = await CreateGroup.find({userId : req.params.userId})
+        console.log(groups);
+        res.json({groups});
+
+    }catch(e){
+        console.log('sahil');
+        res.status(500).json({ error: e.message });
+    } 
+})
+
+userRouter.get("/api/user/get-groups-details-by-others/:mobno", async  (req, res) => {
+    try{
+        console.log("sahil");
+        console.log(req.params.mobno);
+        var groups = await Groups.find({"groupMembers.number" : req.params.mobno})
         console.log(groups);
         res.json({groups});
 
