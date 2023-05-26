@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/constants/dimensions.dart';
 import 'package:splitbuddie/features/create_group/services/create_group_services.dart';
@@ -24,10 +27,11 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
 
     CreateGroupServices createGroupServices = CreateGroupServices();
 
-    void onPressedCreateGroup() {
-      String? userId = userProvider.user.id;
+    void onPressedCreateGroup() async {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      var obtainId = pref.getString("id");
       createGroupServices.createGroup(
-          userId: userId!,
+          userId: obtainId!,
           context: context,
           groupName: newGroupNameController.text,
           groupType: "Flat Mates");
@@ -41,13 +45,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
           color: Colors.black,
         ),
         backgroundColor: AppColors.screenBackgroundColor,
-        title: Row(children: [
+        title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             "Create Group",
             style: TextStyle(fontSize: Dimensions.font22, color: Colors.black),
-          ),
-          SizedBox(
-            width: 150.w,
           ),
           GestureDetector(
             onTap: onPressedCreateGroup,
@@ -60,7 +61,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         ]),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 20, left: 15),
+        padding: EdgeInsets.only(top: 20.h, left: 15.w),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -3,13 +3,15 @@ import 'package:splitbuddie/Models/create_group_model.dart';
 import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
+import 'package:splitbuddie/features/auth/screens/signin_screen.dart';
+import 'package:splitbuddie/features/auth/screens/signup_screen.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
 import 'package:splitbuddie/features/expense/screens/add_expense_screem.dart';
 import 'package:splitbuddie/features/expense/screens/expense_screen.dart';
 import 'package:splitbuddie/features/groups/screens/add_friends_in_group_screen.dart';
 import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
-import 'package:splitbuddie/features/groups/screens/group_main.dart';
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
+import 'package:splitbuddie/features/groups/screens/others_groups_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -31,7 +33,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case HomePage.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AuthScreen(),
+        builder: (_) => const HomePage(),
       );
 
     case CreateGroupScreen.routeName:
@@ -64,9 +66,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         ),
       );
     case ExpenseScreen.routeName:
+      var groupId = routeSettings.arguments as String;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const ExpenseScreen(),
+        builder: (_) => ExpenseScreen(
+          groupId: groupId,
+        ),
       );
 
     case AddExpenseScreen.routeName:
@@ -75,6 +80,20 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => AddExpenseScreen(
           groupId: groupId,
+        ),
+      );
+
+    case SignupScreen.routeName:
+      return MaterialPageRoute(builder: (_) => const SignupScreen());
+
+    case SigninScreen.routeName:
+      return MaterialPageRoute(builder: (_) => const SigninScreen());
+
+    case OthersGroupScreen.routeName:
+      var mobileno = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        builder: (_) => OthersGroupScreen(
+          mobileno: mobileno,
         ),
       );
 

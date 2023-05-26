@@ -67,13 +67,17 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
             ),
           ),
           child: Padding(
-              padding: EdgeInsets.only(top: 30.h, left: 40.w, right: 40.w),
+              padding: EdgeInsets.only(
+                top: 30.h,
+              ),
               child: Column(
                 children: [
                   Container(
                     height: 50.h,
                     width: 50.w,
+                    padding: EdgeInsets.zero,
                     decoration: BoxDecoration(
+                      
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -82,10 +86,12 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                       shape: BoxShape.circle,
                       border: Border.all(color: widget.circularIconBorderColor),
                     ),
-                    child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 0.w),
                       child: Icon(
                         widget.insideCircularIcon,
-                        size: 40.h,
+                        size: 30.h,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -95,7 +101,7 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                   Text(
                     widget.mainText,
                     style:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 11.sp),
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp, color: Colors.black),
                   )
                 ],
               )),

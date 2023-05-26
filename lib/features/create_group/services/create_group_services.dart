@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:splitbuddie/Models/create_group_model.dart';
+import 'package:splitbuddie/Models/groups_list_model.dart';
 import 'package:splitbuddie/Models/user.dart';
 import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
 import 'package:splitbuddie/constants/http_error_handelling.dart';
+import 'package:splitbuddie/constants/logger.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:splitbuddie/features/groups/screens/group_screen.dart';
@@ -42,14 +44,15 @@ class CreateGroupServices {
           response: res,
           context: context,
           onSuccess: () {
-            Navigator.pushNamed(context, GroupScreen.routeName);
+            // Navigator.popUntil(context);
+            Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
           });
     } catch (e) {
-      
+      print(e.toString());
     }
   }
 
-  Future<List<dynamic>> getCreatedGroupDetails({
+  Future<GroupsListModel?> getCreatedGroupDetails({
     required BuildContext context,
     required String userId,
   }) async {
@@ -62,20 +65,17 @@ class CreateGroupServices {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-
-      // print(res.body);
-
-      // var groupProvider = Provider.of<GroupProvider>(context, listen: false);
-      // groupProvider.setUser(res.body);
-
-      Map<String, dynamic> newResponse = jsonDecode(res.body);
+      logger.i("Get Groups Details API ${res.body}");
+      GroupsListModel list = groupsListModelFromJson(res.body);
 
       print("Sahsdns");
       // print("Sahil1234" + newResponse['groups']);
-      return newResponse['groups'];
+      return list;
     } catch (e) {
       showSnackBar(context, e.toString());
-      return jsonDecode('{"error" : "Some error occured"}');
+      return null;
     }
   }
+
+  
 }

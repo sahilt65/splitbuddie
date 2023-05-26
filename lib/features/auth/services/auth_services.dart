@@ -10,6 +10,7 @@ import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/constants/http_error_handelling.dart';
 import 'package:splitbuddie/constants/utils.dart';
 import 'package:splitbuddie/constants/global_contants.dart';
+import 'package:splitbuddie/features/Home/screens/home_page.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class AuthService {
@@ -55,7 +56,8 @@ class AuthService {
           provider.setUser(res.body);
           print("id stored");
           prefs.setString("id", _user.id!);
-          showSnackBar(context, "Account Created! Login with the same credentials");
+          showSnackBar(context, "Hurrah! Your Account is Created!");
+          Navigator.pushNamed(context, BottomBar.routeName);
         },
       );
     } catch (e) {
@@ -89,14 +91,10 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () async {
-          print("Success1");
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          print("Success2");
           Provider.of<UserProvider>(context, listen: false).setUser(res.body.toString());
-          print("Success3");
           prefs.setString("x-auth-token", jsonDecode(res.body)['token']);
           prefs.setString("id", jsonDecode(res.body)['_id']);
-          print("Success4");
           Navigator.pushNamedAndRemoveUntil(
             context,
             BottomBar.routeName,

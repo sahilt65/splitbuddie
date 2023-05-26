@@ -228,8 +228,7 @@ class _ProfileboxState extends State<Profilebox> {
                             SharedPreferences pref = await SharedPreferences.getInstance();
                             var obtainEmail = pref.getString("id");
                             pref.remove("id");
-                            Navigator.pushAndRemoveUntil(
-                                context, MaterialPageRoute(builder: (ctx) => AuthScreen()), (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context, AuthScreen.routeName, (route) => false);
                           },
                           child: Text(
                             'Logout',

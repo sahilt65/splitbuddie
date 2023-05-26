@@ -1,41 +1,46 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:splitbuddie/Models/create_group_model.dart';
-import 'package:splitbuddie/Models/get_user_model.dart';
 import 'package:splitbuddie/Models/groups_list_model.dart';
+import 'package:splitbuddie/Models/others_group_model.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/constants/dimensions.dart';
-import 'package:splitbuddie/features/Home/home_services.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
 import 'package:splitbuddie/features/create_group/services/create_group_services.dart';
 import 'package:splitbuddie/features/groups/screens/group_info_screen.dart';
-import 'package:splitbuddie/features/groups/screens/others_groups_screen.dart';
+import 'package:splitbuddie/features/groups/services/group_details_services.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
-class GroupScreen extends StatefulWidget {
-  static const routeName = "/group-screen";
-  const GroupScreen({super.key});
+class OthersGroupScreen extends StatefulWidget {
+  static const routeName = "/others-group-screen";
+  String mobileno;
+  OthersGroupScreen({
+    Key? key,
+    required this.mobileno,
+  }) : super(key: key);
 
   @override
-  State<GroupScreen> createState() => _GroupScreenState();
+  State<OthersGroupScreen> createState() => _OthersGroupScreenState();
 }
 
-class _GroupScreenState extends State<GroupScreen> {
+class _OthersGroupScreenState extends State<OthersGroupScreen> {
   void navigateToGroupInfoScreen() {}
 
-  CreateGroupServices createGroupServices = CreateGroupServices();
-  GroupsListModel? groupDetails;
+  PostGroupDetailsServices groupsServices = PostGroupDetailsServices();
+  OthersGroupModel? groupDetails;
   bool isLoaded = false;
 
   void getDetails() async {
     print("Sahil");
     SharedPreferences pref = await SharedPreferences.getInstance();
     var obtainId = pref.getString("id");
-    groupDetails = await createGroupServices.getCreatedGroupDetails(context: context, userId: obtainId!);
+    groupDetails = await groupsServices.getCreatedGroupDetails(context: context, mobileno: widget.mobileno);
 
     if (groupDetails != null) {
       setState(() {
@@ -44,23 +49,10 @@ class _GroupScreenState extends State<GroupScreen> {
     }
   }
 
-  HomeServices homeServices = HomeServices();
-  UserModel? user;
-  bool isUserLoaded = false;
-  Future getuserDetails() async {
-    user = await homeServices.getUserDetails();
-    if (user != null) {
-      setState(() {
-        isUserLoaded = true;
-      });
-    }
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getuserDetails();
     getDetails();
   }
 
@@ -101,25 +93,6 @@ class _GroupScreenState extends State<GroupScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 20.h,
-                ),
-                Padding(
-                    padding: EdgeInsets.only(left: 20.h),
-                    child: GestureDetector(
-                      onTap: () {
-                        if (isUserLoaded) {
-                          Navigator.pushNamed(context, OthersGroupScreen.routeName, arguments: user!.mob!);
-                        }
-                      },
-                      child: Container(
-                        height: 30.h,
-                        width: 250.w,
-                        decoration:
-                            BoxDecoration(color: AppColors.buttonColor, borderRadius: BorderRadius.circular(10.r)),
-                        child: Center(child: Text("Groups Created by Your Friends")),
-                      ),
-                    )),
-                SizedBox(
                   height: 10.h,
                 ),
                 Container(
@@ -130,17 +103,15 @@ class _GroupScreenState extends State<GroupScreen> {
                       itemCount: groupDetails!.groups!.length,
                       itemBuilder: (context, index) {
                         CreateGroup createGroup = CreateGroup(
-                          groupId: groupDetails!.groups![index].id,
-                          userId: groupDetails!.groups![index].userId!,
+                          groupId: groupDetails!.groups![index].groupId,
+                          userId: "",
                           groupName: groupDetails!.groups![index].groupName!,
                           groupType: groupDetails!.groups![index].groupType!,
                         );
                         return GestureDetector(
                           onTap: () {
-                            // CreateGroupServices createGroupServices = CreateGroupServices();
                             final userProvider = Provider.of<UserProvider>(context, listen: false);
                             String? userId = userProvider.user.id;
-                            // createGroupServices.getCreatedGroupDetails(context: context, userId: userId!);
                             Navigator.pushNamed(context, GroupInfoScreen.routeName, arguments: createGroup);
                           },
                           child: Padding(

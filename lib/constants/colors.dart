@@ -16,4 +16,6 @@ class AppColors {
     110,
     1,
   );
+
+  static const buttonColor = Color(0xff5BC7EC);
 }

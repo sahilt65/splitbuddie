@@ -101,7 +101,7 @@ class _NoGroupMemberScreenState extends State<NoGroupMemberScreen> {
               splashColor: Color.fromRGBO(153, 185, 223, 1),
               borderRadius: BorderRadius.circular(50),
               onTap: () {
-                Navigator.pushNamed(context, AddFriendInGroupScreen.routeName, arguments: widget.groupInfo);
+                Navigator.popAndPushNamed(context, AddFriendInGroupScreen.routeName, arguments: widget.groupInfo);
               },
               child: Container(
                 decoration: BoxDecoration(

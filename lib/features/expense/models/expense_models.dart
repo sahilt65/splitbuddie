@@ -62,7 +62,7 @@ class FriendsList {
     factory FriendsList.fromJson(Map<String, dynamic> json) => FriendsList(
         name: json["name"],
         number: json["number"],
-        spend: json["spend"],
+        spend: json["spend"].toDouble(),
     );
 
     Map<String, dynamic> toJson() => {

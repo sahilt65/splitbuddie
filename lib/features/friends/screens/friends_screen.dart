@@ -17,9 +17,9 @@ class _FriendsScreenState extends State<FriendsScreen> {
   FriendServices friendServices = FriendServices();
   List<dynamic> friendsList = [];
   void getUserFriendList() async {
-    List<dynamic> tempList = await friendServices.getUserFriendList(context: context);
-    print("Sahil" + tempList[0]['name']);
-    friendsList = tempList;
+    List<dynamic>? tempList = await friendServices.getUserFriendList(context: context);
+    print("Sahil" + tempList![0]['name']);
+    friendsList = tempList!;
     setState(() {});
   }
 

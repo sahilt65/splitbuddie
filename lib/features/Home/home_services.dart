@@ -12,7 +12,7 @@ class HomeServices {
     print("----------------------------------------");
     if (res.statusCode == 200) {
       UserModel user = userModelFromJson(res.body);
-      logger.i("Get user Api $res");
+      logger.i("Get user Api ${res.body}");
       return user;
     }
   }
