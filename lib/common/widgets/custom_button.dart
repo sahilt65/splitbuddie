@@ -17,7 +17,6 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(290, 50),
@@ -26,7 +25,7 @@ class CustomButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(color: color == null ? Colors.white : Colors.black),
+        style: TextStyle(color: Colors.white),
       ),
     );
   }

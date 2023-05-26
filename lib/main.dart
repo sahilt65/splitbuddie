@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
           onGenerateRoute: ((settings) => generateRoute(settings)),
           // home: GroupInfoScreen(
           //   groupInfo: CreateGroup(userId: '123', groupName: "Flayt Mates", groupType: "Home"),
-          // ),
+          // ),v
           home: userId.isNotEmpty ? const BottomBar() : const AuthScreen(),
           // home: BottomBar(),
         );

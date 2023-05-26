@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/common/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ enum Auth {
 }
 
 class SigninScreen extends StatefulWidget {
-  static const String routeName = '/auth-screen';
+  static const String routeName = '/signin-screen';
   const SigninScreen({super.key});
 
   @override
@@ -47,17 +48,19 @@ class _SigninScreenState extends State<SigninScreen> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                // begin: Alignment(0.14107348024845123, 0.5028655529022217),
-                // end: Alignment(-0.5028655529022217, 0.2614468097686768),
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-              Color.fromRGBO(169, 224, 243, 1),
-              Color.fromRGBO(105, 129, 202, 1),
-              Color.fromRGBO(105, 129, 202, 1)
-            ])),
+        decoration: const BoxDecoration(color: AppColors.screenBackgroundColor
+            //   gradient: LinearGradient(
+            //       // begin: Alignment(0.14107348024845123, 0.5028655529022217),
+            //       // end: Alignment(-0.5028655529022217, 0.2614468097686768),
+            //       begin: Alignment.topLeft,
+            //       end: Alignment.bottomRight,
+            //       colors: [
+            //     Color.fromRGBO(169, 224, 243, 1),
+            //     Color.fromRGBO(105, 129, 202, 1),
+            //     Color.fromRGBO(105, 129, 202, 1)
+            //   ],
+            // ),
+            ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -68,7 +71,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   Container(
                     padding: EdgeInsets.only(top: 80),
                     child: Image.asset(
-                      "assets/images/logo.png",
+                      "assets/images/new-logo.png",
                       height: 120,
                     ),
                   ),
@@ -82,38 +85,43 @@ class _SigninScreenState extends State<SigninScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Form(
-                      key: _signInFormKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            controller: _emailController,
-                            hintText: "Email",
-                            textInputType: TextInputType.emailAddress,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomTextField(
-                            controller: _passwordController,
-                            hintText: "Password",
-                            textInputType: TextInputType.emailAddress,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CustomButton(
-                            color: AppColors.mainAppColor,
-                            text: "Sign In",
-                            onPressed: () {
-                              if (_signInFormKey.currentState!.validate()) {
-                                signInUser();
-                              }
-                            },
-                          ),
-                        ],
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.h, right: 10.h),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: Form(
+                        key: _signInFormKey,
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              controller: _emailController,
+                              hintText: "Email",
+                              textInputType: TextInputType.emailAddress,
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            CustomTextField(
+                              controller: _passwordController,
+                              hintText: "Password",
+                              textInputType: TextInputType.emailAddress,
+                            ),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            CustomButton(
+                              color: AppColors.buttonColor,
+                              text: "Sign In",
+                              onPressed: () {
+                                print(_emailController.text);
+                                print(_nameController.text);
+                                if (_signInFormKey.currentState!.validate()) {
+                                  signInUser();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

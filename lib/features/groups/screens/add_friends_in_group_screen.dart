@@ -2,11 +2,14 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:splitbuddie/Models/contact_model.dart';
 import 'package:splitbuddie/Models/create_group_model.dart';
 import 'package:splitbuddie/Models/friend_model.dart';
+import 'package:splitbuddie/Models/get_user_model.dart';
 import 'package:splitbuddie/constants/colors.dart';
+import 'package:splitbuddie/features/Home/home_services.dart';
 import 'package:splitbuddie/features/groups/services/add_friends_to_user_friend_list.dart';
 import 'package:splitbuddie/features/groups/services/group_details_services.dart';
 import 'package:splitbuddie/providers/group_provider.dart';
@@ -33,8 +36,13 @@ class _AddFriendInGroupScreenState extends State<AddFriendInGroupScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("----------------/////////-----------------------");
+    print(widget.groupInfo.groupId);
+    getuserDetails();
     getAllContacts();
-    addToFriendList();
+    // addToFriendList();
+    getUserId();
+
   }
 
   void getAllContacts() async {
@@ -56,14 +64,35 @@ class _AddFriendInGroupScreenState extends State<AddFriendInGroupScreen> {
     });
   }
 
+  String? userId = "";
+  void getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('id');
+  }
+
+  HomeServices homeServices = HomeServices();
+  UserModel? user;
+  bool isUserLoaded = false;
+  Future getuserDetails() async {
+    user = await homeServices.getUserDetails();
+    if (user != null) {
+      setState(() {
+        isUserLoaded = true;
+      });
+    }
+  }
+
   void addToFriendList() {
     List<Friend> tempFriendList = [];
     setState(() {
+      Friend friend = Friend(name: user!.name!, number: user!.mob!);
+      tempFriendList.add(friend);
       for (int i = 0; i < contacts.length; i++) {
         if (contacts[i].isSelected) {
           tempFriendList.add(Friend(name: contacts[i].name, number: contacts[i].number));
         }
       }
+
       friendList = tempFriendList;
     });
   }
@@ -72,23 +101,19 @@ class _AddFriendInGroupScreenState extends State<AddFriendInGroupScreen> {
   PostGroupDetailsServices postGroupDetailsServices = PostGroupDetailsServices();
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    String? userId = userProvider.user.id;
-    final groupProvider = Provider.of<GroupProvider>(context, listen: false);
-    String? groupId = groupProvider.group.groupId;
     return Scaffold(
       appBar: AppBar(
         actions: [
           GestureDetector(
             onTap: () {
-              print("kjshfjhbdsdfjb" + groupId);
               postGroupDetailsServices.postGroupDetails(
-                  adminUserId: userId!,
-                  groupId: widget.groupInfo.groupId!,
-                  groupName: widget.groupInfo.groupName,
-                  groupType: widget.groupInfo.groupType,
-                  groupMembers: friendList,
-                  context: context);
+                adminUserId: userId!,
+                groupId: widget.groupInfo.groupId!,
+                groupName: widget.groupInfo.groupName,
+                groupType: widget.groupInfo.groupType,
+                groupMembers: friendList,
+                context: context,
+              );
               addFriendsToUserListServices.addFriendsToUserList(
                 friendsList: friendList,
                 userId: userId,

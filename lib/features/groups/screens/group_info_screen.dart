@@ -9,6 +9,8 @@ import 'package:splitbuddie/common/widgets/bottom_bar.dart';
 import 'package:splitbuddie/common/widgets/custom_button.dart';
 import 'package:splitbuddie/constants/colors.dart';
 import 'package:splitbuddie/features/create_group/services/create_group_services.dart';
+import 'package:splitbuddie/features/expense/screens/expense_screen.dart';
+import 'package:splitbuddie/features/groups/models/group_model.dart';
 import 'package:splitbuddie/features/groups/screens/add_friends_in_group_screen.dart';
 import 'package:splitbuddie/features/groups/screens/group_screen_with_members.dart';
 import 'package:splitbuddie/features/groups/screens/no_group_member_screen.dart';
@@ -30,32 +32,37 @@ class GroupInfoScreen extends StatefulWidget {
 
 class _GroupInfoScreenState extends State<GroupInfoScreen> {
   PostGroupDetailsServices postGroupDetailsServices = PostGroupDetailsServices();
-  Map<String, dynamic>? groupDetails;
+  List<Groups>? groupDetails;
+  bool isLoaded = false;
   void getGroupInfo() async {
-    Map<String, dynamic>? tempGroupDetails =
-        await postGroupDetailsServices.getGroupDetails(context: context, groupId: widget.groupInfo.groupId!);
-
-    // print("Dkjsdfjkc" + tempGroupDetails["_id"]);
-    // print("Dkjsdfjkc" + tempGroupDetails["groupMembers"][0]["name"]);
-
-    setState(() {
-      groupDetails = tempGroupDetails;
-    });
+    groupDetails = await postGroupDetailsServices.getGroupDetails(context: context, groupId: widget.groupInfo.groupId!);
+    if (groupDetails != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     getGroupInfo();
   }
 
   @override
   Widget build(BuildContext context) {
-    return groupDetails == null
-        ? NoGroupMemberScreen(groupInfo: widget.groupInfo)
-        : GroupInfoScreenWithMembers(
-            groupInfo: groupDetails!,
+    return isLoaded
+        ? groupDetails!.isEmpty
+            ? NoGroupMemberScreen(groupInfo: widget.groupInfo)
+            : ExpenseScreen(groupId: widget.groupInfo.groupId!)
+        : const Scaffold(
+            backgroundColor: AppColors.screenBackgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
           );
   }
 }

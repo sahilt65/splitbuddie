@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splitbuddie/constants/colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -16,17 +17,20 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.white),
-      keyboardType: textInputType,
+      textAlignVertical: TextAlignVertical.center,
+      maxLines: 1,
       controller: controller,
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
+        border: InputBorder.none,
+        focusColor: Colors.white,
+        contentPadding: EdgeInsets.only(bottom: 15, right: 12, top: 12, left: 12),
+        filled: true,
+        fillColor: Color(0xFFF2F5FD),
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.white),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.mainAppFaintColor),
+        hintStyle: TextStyle(
+          fontSize: 15.0.sp,
+          color: Color.fromRGBO(0, 0, 0, 1),
         ),
       ),
       validator: (val) {
@@ -35,7 +39,7 @@ class CustomTextField extends StatelessWidget {
         }
         return null;
       },
-      maxLines: maxLines,
     );
   }
 }
+

@@ -10,7 +10,7 @@ import 'package:splitbuddie/constants/utils.dart';
 import 'package:splitbuddie/providers/user_provider.dart';
 
 class FriendServices {
-  Future<List<dynamic>> getUserFriendList({
+  Future<List<dynamic>?> getUserFriendList({
     required BuildContext context,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -42,7 +42,7 @@ class FriendServices {
     } catch (e) {
       print(e.toString());
       showSnackBar(context, e.toString());
-      return jsonDecode('{"error" : "Some error occured"}');
+      return null;
     }
   }
 }

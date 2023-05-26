@@ -15,6 +15,7 @@ import 'package:splitbuddie/features/auth/screens/auth_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signin_screen.dart';
 import 'package:splitbuddie/features/auth/screens/signup_screen.dart';
 import 'package:splitbuddie/features/create_group/screens/create_group_screen.dart';
+import 'package:splitbuddie/features/groups/screens/group_screen.dart';
 import 'package:splitbuddie/profile/screens/profilebox.dart';
 
 import '../../groups/widgets/Horizontalcard.dart';
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getuserDetails();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -59,209 +60,203 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: isUserLoaded
           ? Container(
-        // decoration: BoxDecoration(gradi),
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackgroundColor,
-          // Color.fromRGBO(223, 235, 245, 1),
-          body: Padding(
-            padding: EdgeInsets.only(top: 100.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //first Row
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 28.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // decoration: BoxDecoration(gradi),
+              child: Scaffold(
+                backgroundColor: AppColors.screenBackgroundColor,
+                // Color.fromRGBO(223, 235, 245, 1),
+                body: Padding(
+                  padding: EdgeInsets.only(top: 100.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
+                      //first Row
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 28.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                                   user!.name!,
-                            style: TextStyle(
-                                fontSize: 25.sp, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text(
-                            "Welcome Back",
-                            style: TextStyle(
-                                fontSize: 25.sp, fontWeight: FontWeight.w400),
-                          ),
-                        ],
+                                  style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold, color: Colors.black),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text(
+                                  "Welcome Back",
+                                  style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w400, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              child: GestureDetector(
+                                onTap: () {
+                                  print('Ala ka ree');
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) {
+                                      return Profilebox();
+                                    },
+                                  );
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Color.fromRGBO(153, 185, 223, 1),
+                                  radius: 35.r,
+                                  backgroundImage: const AssetImage(
+                                    "assets/images/test_person.png",
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      Container(
-                        child: GestureDetector(
-                          onTap: () {
-                            print('Ala ka ree');
-                            showDialog(
-                                context: context,
-                                builder: (ctx) {
-                                  return Profilebox();
-                                });
-                          },
-                          child: CircleAvatar(
-                            backgroundColor: Color.fromRGBO(153, 185, 223, 1),
-                            radius: 35.r,
-                            backgroundImage: AssetImage(
-                              "assets/images/test_person.png",
+                      //second Row
+                      Padding(
+                        padding: const EdgeInsets.only(top: 42, left: 28, right: 28),
+                        child: Container(
+                          height: 350.h,
+
+                          width: double.infinity,
+                          // color: Colors.black,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: Colors.yellow,
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromRGBO(87, 92, 116, 1),
+                                Color.fromRGBO(88, 93, 117, 1),
+                                Color.fromRGBO(94, 99, 124, 1),
+                                Color.fromRGBO(98, 104, 129, 1),
+                                Color.fromRGBO(99, 104, 130, 1),
+                                Color.fromRGBO(106, 112, 139, 1),
+                                Color.fromRGBO(107, 112, 139, 1),
+                              ],
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                //second Row
-                Padding(
-                  padding: const EdgeInsets.only(top: 42, left: 28, right: 28),
-                  child: Container(
-                    height: 350.h,
-
-                    width: double.infinity,
-                    // color: Colors.black,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(8.r),
-                      color: Colors.yellow,
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(87, 92, 116, 1),
-                          Color.fromRGBO(88, 93, 117, 1),
-                          Color.fromRGBO(94, 99, 124, 1),
-                          Color.fromRGBO(98, 104, 129, 1),
-                          Color.fromRGBO(99, 104, 130, 1),
-                          Color.fromRGBO(106, 112, 139, 1),
-                          Color.fromRGBO(107, 112, 139, 1),
-                        ],
-                      ),
-                    ),
-                    child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 60.h, left: 25.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
+                            // crossAxisAlignment: CrossAxisAlignment.,
                             children: [
-                              Text(
-                                "Account Balance",
-                                style: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white),
+                              Padding(
+                                padding: EdgeInsets.only(top: 60.h, left: 25.w),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Account Balance",
+                                      style:
+                                          TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w300, color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      "₹ 12000",
+                                      style:
+                                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                                    ),
+                                  ],
+                                ),
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 20.h,
                               ),
-                              Text(
-                                "₹ 12000",
-                                style: TextStyle(
-                                    fontSize: 25.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
                               Align(
                                 alignment: Alignment.bottomRight,
                                 child: Image.asset(
                                   "assets/images/3d_person_image.png",
                                   height: 270.h,
                                 ),
-                        )
-                      ],
-                    ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          HomeCardWidget(
+                            onTap: () {
+                              Navigator.pushNamed(context, CreateGroupScreen.routeName);
+                            },
+                            mainCardColorGradient: const [
+                              Color.fromRGBO(211, 233, 249, 1),
+                              Color.fromRGBO(147, 183, 215, 1),
+                              Color.fromRGBO(110, 166, 206, 1),
+                            ],
+                            circularIconColorGradient: const [
+                              Color.fromRGBO(211, 233, 249, 1),
+                              Color.fromRGBO(110, 166, 206, 1),
+                            ],
+                            circularIconBorderColor: const Color.fromRGBO(104, 148, 181, 1),
+                            mainBorderColor: const Color.fromRGBO(93, 136, 164, 1),
+                            boxShadowColor: const Color.fromRGBO(173, 209, 231, 1),
+                            insideCircularIcon: Icons.add_outlined,
+                            mainText: "Group",
+                            leftPadding: 28.w,
+                          ),
+                          HomeCardWidget(
+                            onTap: () {
+                              Navigator.pushNamed(context, GroupScreen.routeName);
+                            },
+                            mainCardColorGradient: const [
+                              Color.fromRGBO(242, 202, 202, 1),
+                              Color.fromRGBO(227, 186, 185, 1),
+                              Color.fromRGBO(209, 160, 160, 1),
+                              // Color.fromRGBO(179, 129, 129, 1),
+                              Color.fromRGBO(209, 121, 121, 1),
+                            ],
+                            mainBorderColor: const Color.fromRGBO(179, 129, 129, 1),
+                            boxShadowColor: const Color.fromRGBO(173, 209, 231, 1),
+                            mainText: "Expense",
+                            circularIconColorGradient: const [
+                              Color.fromRGBO(242, 202, 202, 1),
+                              Color.fromRGBO(209, 121, 121, 1),
+                            ],
+                            circularIconBorderColor: const Color.fromRGBO(104, 148, 181, 1),
+                            insideCircularIcon: Icons.add_outlined,
+                            rightPadding: 0.w,
+                          ),
+                          HomeCardWidget(
+                            onTap: () {
+                              print("Sahil");
+                              Navigator.pushNamed(context, ExpenseScreen.routeName);
+                            },
+                            leftPadding: 0,
+                            rightPadding: 20.w,
+                            mainCardColorGradient: [
+                              Color.fromRGBO(214, 245, 240, 1),
+                              Color.fromRGBO(169, 215, 206, 1),
+                              Color.fromRGBO(111, 189, 175, 1),
+                              Color.fromRGBO(99, 192, 175, 1),
+                            ],
+                            mainBorderColor: Color.fromRGBO(111, 189, 175, 1),
+                            boxShadowColor: Color.fromRGBO(173, 209, 231, 1),
+                            mainText: "Borrow",
+                            circularIconColorGradient: [
+                              Color.fromRGBO(214, 245, 240, 1),
+                              Color.fromRGBO(169, 215, 206, 1),
+                              Color.fromRGBO(111, 189, 175, 1),
+                              Color.fromRGBO(99, 192, 175, 1),
+                            ],
+                            circularIconBorderColor: Color.fromRGBO(104, 148, 181, 1),
+                            insideCircularIcon: Icons.add_outlined,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HomeCardWidget(
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, CreateGroupScreen.routeName);
-                      },
-                      mainCardColorGradient: const [
-                        Color.fromRGBO(211, 233, 249, 1),
-                        Color.fromRGBO(147, 183, 215, 1),
-                        Color.fromRGBO(110, 166, 206, 1),
-                      ],
-                      circularIconColorGradient: const [
-                        Color.fromRGBO(211, 233, 249, 1),
-                        Color.fromRGBO(110, 166, 206, 1),
-                      ],
-                      circularIconBorderColor:
-                          const Color.fromRGBO(104, 148, 181, 1),
-                      mainBorderColor: const Color.fromRGBO(93, 136, 164, 1),
-                      boxShadowColor: const Color.fromRGBO(173, 209, 231, 1),
-                      insideCircularIcon: Icons.add_outlined,
-                      mainText: "Group",
-                      leftPadding: 28.w,
-                    ),
-                    HomeCardWidget(
-                      onTap: () {},
-                      mainCardColorGradient: const [
-                        Color.fromRGBO(242, 202, 202, 1),
-                        Color.fromRGBO(227, 186, 185, 1),
-                        Color.fromRGBO(209, 160, 160, 1),
-                        // Color.fromRGBO(179, 129, 129, 1),
-                        Color.fromRGBO(209, 121, 121, 1),
-                      ],
-                      mainBorderColor: const Color.fromRGBO(179, 129, 129, 1),
-                      boxShadowColor: const Color.fromRGBO(173, 209, 231, 1),
-                      mainText: "Spend",
-                      circularIconColorGradient: const [
-                        Color.fromRGBO(242, 202, 202, 1),
-                        Color.fromRGBO(209, 121, 121, 1),
-                      ],
-                      circularIconBorderColor:
-                          const Color.fromRGBO(104, 148, 181, 1),
-                      insideCircularIcon: Icons.add_outlined,
-                      rightPadding: 0.w,
-                    ),
-                    HomeCardWidget(
-                      onTap: () {
-                        print("Sahil");
-                        Navigator.pushNamed(context, ExpenseScreen.routeName);
-                      },
-                      leftPadding: 0,
-                      rightPadding: 20.w,
-                      mainCardColorGradient: [
-                        Color.fromRGBO(214, 245, 240, 1),
-                        Color.fromRGBO(169, 215, 206, 1),
-                        Color.fromRGBO(111, 189, 175, 1),
-                        Color.fromRGBO(99, 192, 175, 1),
-                      ],
-                      mainBorderColor: Color.fromRGBO(111, 189, 175, 1),
-                      boxShadowColor: Color.fromRGBO(173, 209, 231, 1),
-                      mainText: "Borrow",
-                      circularIconColorGradient: [
-                        Color.fromRGBO(214, 245, 240, 1),
-                        Color.fromRGBO(169, 215, 206, 1),
-                        Color.fromRGBO(111, 189, 175, 1),
-                        Color.fromRGBO(99, 192, 175, 1),
-                      ],
-                      circularIconBorderColor: Color.fromRGBO(104, 148, 181, 1),
-                      insideCircularIcon: Icons.add_outlined,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
             )
           : const Center(
               child: CircularProgressIndicator(

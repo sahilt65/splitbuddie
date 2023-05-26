@@ -64,7 +64,7 @@ class ExpenseServices {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      logger.i("Get Expense Api : $res");
+      logger.i("Get Expense Api : ${res.body}");
       print("sahbdfshjbfd");
       List<Groups> groups = groupsFromJson(res.body);
       print(res.body);

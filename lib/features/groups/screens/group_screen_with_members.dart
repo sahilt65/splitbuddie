@@ -4,9 +4,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:splitbuddie/Models/main_group_model.dart';
 import 'package:splitbuddie/constants/colors.dart';
+import 'package:splitbuddie/features/groups/models/group_model.dart';
 
 class GroupInfoScreenWithMembers extends StatefulWidget {
-  final Map<String, dynamic> groupInfo;
+  final Groups groupInfo;
   const GroupInfoScreenWithMembers({
     Key? key,
     required this.groupInfo,
@@ -19,7 +20,7 @@ class GroupInfoScreenWithMembers extends StatefulWidget {
 class _GroupInfoScreenWithMembersState extends State<GroupInfoScreenWithMembers> {
   @override
   Widget build(BuildContext context) {
-    List<dynamic> groupMembersList = widget.groupInfo["groupMembers"];
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -32,10 +33,10 @@ class _GroupInfoScreenWithMembersState extends State<GroupInfoScreenWithMembers>
         ),
       ),
       body: ListView.builder(
-          itemCount: groupMembersList.length,
+          itemCount: widget.groupInfo.groupMembers!.length,
           itemBuilder: (context, index) {
             return Container(
-              child: Text(groupMembersList[index]["name"]),
+              child: Text(widget.groupInfo.groupMembers![index].name.toString()),
             );
           }),
     );

@@ -37,7 +37,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       setState(() {
         groupsLoaded = true;
         print("---------------------------------");
-        print(groups![0].groupId);
+        print(widget.groupId);
       });
     }
   }
@@ -55,7 +55,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         spend: double.parse(spendController.text),
         groupId: widget.groupId,
         friendList: friendsList,
-        
         context: context);
   }
 
