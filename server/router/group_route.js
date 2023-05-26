@@ -5,6 +5,7 @@ const Group = require("../models/group_model");
 groupRouter.post("/api/group/post-group-details", async (req, res)=>{
     try{
         console.log("sahil");
+        console.log(req.body);
 
         const {adminUserId, groupId, groupName, groupType, groupMembers} = req.body;
         let group = new Group({
